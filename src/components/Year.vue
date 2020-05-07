@@ -1,7 +1,14 @@
 <template>
   <li class="year">
-    <div class="year-header">{{ year }} ({{ albums.length }})</div>
-    <ol class="albums-list">
+    <hr>
+    <h2 class="year-header">    
+      <font-awesome-icon 
+        :icon="expanded ? 'minus' : 'plus'" 
+        @click="expanded = !expanded"
+      /> {{ year }} ({{ albums.length }})
+    </h2>
+
+    <ol v-show="expanded" class="albums-list">
       <Album v-for="album in sortedAlbums" :key="album.album.id"
       :album="album"/>
     </ol>
@@ -17,6 +24,10 @@ export default {
   },
 
   props: ["access_token","year","albums"],
+
+  data() { return {
+    expanded: false
+  }},
 
   computed: {
     sortedAlbums() {
