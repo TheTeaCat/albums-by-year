@@ -82,11 +82,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.username {
-  font-weight: bold;
-}
-span {
-  color: $green;
-  font-weight: bold;
-}
+.library { width:100%; }
+h1 { margin: $spacer 0 $spacer*4 0; }
 </style>

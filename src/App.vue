@@ -4,7 +4,7 @@
 
     <main v-if="!authorised"> 
       <!-- Should be a nice landing page with "click here to authenticate" button or similar here -->
-      <h1><a :href="authoriseURL">Authenticate</a></h1>
+      <h1 class="auth"><a :href="authoriseURL">Click here</a> to log in with Spotify<span>!</span></h1>
     </main>
     <main v-else>
       <Library :access_token="access_token" />
@@ -91,13 +91,20 @@ export default {
   color:$grey-ll;
 }
 
+main {
+  flex-grow:1;
+  display:flex;
+}
+
+.auth {
+  align-self: center;
+  width:100%;
+  text-align: center;
+}
+
 footer {
   padding-top: $spacer*3;
   padding-bottom: $spacer;
-
-  flex-grow:1;
-  display:flex;
-  align-items: flex-end;
 
   .icon {
     margin-right: 0.25em;
