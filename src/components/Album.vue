@@ -30,22 +30,18 @@ export default {
 .album {
   padding: $spacer;
   
-  flex-basis:25%;
-  @media(orientation: landscape) { flex-basis: 16.6%; }
+  flex-basis:33.3%;
+  @media(min-width: 750px) { flex-basis:16.6%; }
 
-  > * {
-    margin-bottom: $spacer;
-  }
+  > * { margin-bottom: $spacer; }
+  * { overflow-wrap:anywhere; }
 }
 
-img {
-  width:100%;
-}
+img { width:100%; }
 
 .album-title {
   font-weight:bold;
   font-size:110%;
-
 }
 
 .artists-list {
@@ -57,9 +53,6 @@ img {
     content:", ";
     white-space: pre;
   }
-  li:last-child::after {
-      content:"";
-  }
+  li:last-child::after { content:""; }
 }
-
 </style>
