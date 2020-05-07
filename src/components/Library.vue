@@ -1,6 +1,6 @@
 <template>
   <div class="library">
-      <h1>Your saved albums, sorted by year!</h1>
+      <h1>Your saved albums, by year!</h1>
       <ol v-if="loaded">
         <Year v-for="year in sortedAlbumYears" :key="year"
         :year="year"
