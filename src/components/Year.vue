@@ -43,4 +43,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ol {
+  margin: $spacer;
+
+  display: flex;
+  flex-wrap:wrap;
+}
 </style>

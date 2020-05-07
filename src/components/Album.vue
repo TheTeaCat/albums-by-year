@@ -2,10 +2,9 @@
   <li class="album">
     <img v-if="albumCover" :src="albumCover">
     <div class="album-title">{{ album.album.name }}</div>
-    <ul class="album-artists-list">
-        <li v-for="artist in album.album.artists" :key="artist.id" >
-            {{ artist.name }}
-        </li>
+    <ul class="artists-list">
+        <li v-for="artist in album.album.artists" :key="artist.id" 
+        >{{ artist.name }}</li>
     </ul>
     <div class="album-release-date">{{ album.album.release_date }}</div>
   </li>
@@ -28,4 +27,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.album {
+  padding: $spacer;
+  
+  flex-basis:33.3%;
+  @media(orientation: landscape) { flex-basis: 16.6%; }
+}
+
+img {
+  width:100%;
+}
+
+.album-title {
+  font-weight:bold;
+}
+
+.artists-list {
+  li {
+    display:inline-block;
+
+  }
+  li::after {
+    content:", ";
+    white-space: pre;
+  }
+  li:last-child::after {
+      content:"";
+  }
+}
+
 </style>
