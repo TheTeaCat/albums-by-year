@@ -58,4 +58,5 @@ export default {
 
 <style lang="scss" scoped>
     @import './assets/css/reset.css';
+    @import './assets/css/styles.css';
 </style>
