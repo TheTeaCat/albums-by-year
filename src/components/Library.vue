@@ -5,7 +5,7 @@
           >{{ profile.display_name }}</a>{{ profile.display_name[-1] == 's' ? '\'' : '\'s' }}
           saved albums, by year<span>!</span>
         </h1>
-      <CheckboxGroup :options="album_types" :title="'Release Types'"/>
+      <ToggleGroup :options="album_types" :title="'Release Types'"/>
       <ol v-if="albumsByYear">
         <Year v-for="year in sortedAlbumYears" :key="year"
         :year="year"
@@ -18,12 +18,12 @@
 
 <script>
 import axios from "axios"
-import CheckboxGroup from "./CheckboxGroup.vue";
+import ToggleGroup from "./ToggleGroup.vue";
 import Year from "./Year.vue";
 
 export default {
   components: {
-    CheckboxGroup,
+    ToggleGroup,
     Year
   },
 
