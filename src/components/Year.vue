@@ -6,7 +6,7 @@
         :icon="expanded ? 'minus' : 'plus'" 
         :class="{ icon: true, expanded: expanded }"
         @click="expanded = !expanded"
-      /> {{ year }} ({{ albums.length }})
+      /> {{ year }} <span>({{ albums.length }})</span>
     </h2>
 
     <ol v-show="expanded" class="albums-list">
@@ -50,6 +50,10 @@ hr { border-color: $grey-l; }
 
 .icon.expanded {
   color: $green;
+}
+span {
+  font-size:75%;
+  color: $grey-ll;
 }
 
 ol {
