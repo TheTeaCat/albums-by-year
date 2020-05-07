@@ -1,16 +1,19 @@
 <template>
   <li class="year">
-    <h2>{{ year }} ({{ albums.length }})</h2>
-    <ol>
-      {{ albums }}
+    <div class="year-header">{{ year }} ({{ albums.length }})</div>
+    <ol class="albums-list">
+      <Album v-for="album in albums" :key="album.album.id"
+      :album="album"/>
     </ol>
   </li>
 </template>
 
 <script>
+import Album from "./Album.vue";
 
 export default {
   components: {
+      Album
   },
 
   props: ["access_token","year","albums"],
