@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     authorised() {
-      return true
+      return this.$route.query.code ? true : false
     },
     token() {
       return this.$route.query.code
