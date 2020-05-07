@@ -30,7 +30,7 @@ export default {
 .album {
   padding: $spacer;
   
-  flex-basis:33.3%;
+  flex-basis:25%;
   @media(orientation: landscape) { flex-basis: 16.6%; }
 
   > * {
