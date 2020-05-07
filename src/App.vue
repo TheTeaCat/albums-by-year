@@ -10,17 +10,16 @@ export default {
   name: 'App',
   components: {
   },
+  
   data() { return {
     scopes: ['user-library-read', 'user-modify-playback-state'],
     client_id: "8c00d93547824017b1854018ed35bdef",
-    access_token: this.$route.hash.split('&')
-                  .map(part => part.replace(/#/, ''))
-                  .map(part => part.split("="))
-                  .filter(part => part[0] == "access_token")[0][1],
+    access_token: null,
   }},
+
   computed: {
     authorised() {
-      return this.$route.query.access_token ? true : false
+      return this.access_token ? true : false
     },
     authoriseURL() {
       return "https://accounts.spotify.com/authorize?" +
@@ -30,11 +29,20 @@ export default {
       "&scope=" + this.scopes.join("%20")
     }
   },
-  mounted() {
-    console.log(this.$route.query)
 
+  mounted() {
+    //Get access token from hash fragments...
+    var hash_fragments = {}
+    this.$route.hash.split('&')
+      .map(part => part.replace('#', ''))
+      .forEach(param => {
+        const parts = param.split('=');
+        hash_fragments[parts[0]] = parts[1];
+      });
+    this.access_token = hash_fragments["access_token"]
+
+    //... &clear the URL bar
     if (this.authorised) {
-      //clear the URL bar
       this.$router.push(this.$route.path)
     }
   },
