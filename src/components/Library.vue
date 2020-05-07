@@ -10,10 +10,21 @@ import axios from "axios"
 export default {
   components: {
   },
+
   props: ["access_token"],
+
   data() { return {
       albums: null
   }},
+  
+  computed: {
+    request_url() {
+      return "https://api.spotify.com/v1/me/albums?" +
+      "access_token=" + this.access_token +
+      "&limit=50" +
+      "&offset=0"
+    }
+  },
 
   mounted() {
     axios.get(this.request_url)
@@ -23,16 +34,8 @@ export default {
            }.bind(this)
           )
   },
-  computed: {
-    request_url() {
-      return "https://api.spotify.com/v1/me/albums?" +
-      "access_token=" + this.access_token +
-      "&limit=50" +
-      "&offset=0"
-    }
-  },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 </style>
