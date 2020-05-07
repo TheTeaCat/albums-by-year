@@ -12,16 +12,18 @@ export default {
   name: 'App',
   components: {
   },
+  data() { return {
+    authorised: false,
+    token: null
+  }},
   mounted() {
-    console.log(this.$route)
+    this.authorised = this.$route.query.code ? true : false
+    if (this.authorised) {
+      this.token = this.$route.query.code
+      this.$router.push(this.$route.path)
+    }
   },
   computed: {
-    authorised() {
-      return this.$route.query.code ? true : false
-    },
-    token() {
-      return this.$route.query.code
-    },
     authoriseURL() {
       var scopes = ['user-library-read', 'user-modify-playback-state']
       var redirectUri = location.href
