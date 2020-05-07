@@ -82,9 +82,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  margin: $spacer 0 $spacer*4 0;
-}
 .username {
   font-weight: bold;
 }
