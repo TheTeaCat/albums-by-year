@@ -1,14 +1,19 @@
 <template>
   <div id="app">
     <a v-if="!authorised" :href="authoriseURL">Authenticate</a>
-    <p>{{ access_token }}</p>
+    <div v-else>
+      <p>{{ access_token }}</p>
+      <Library :access_token="access_token" />
+    </div>
   </div>
 </template>
 
 <script>
+import Library from "./components/Library.vue";
+
 export default {
-  name: 'App',
   components: {
+    Library
   },
   
   data() { return {
