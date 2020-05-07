@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main :class="{ desktop: desktop }">
     <div v-if="!authorised"> 
       <!-- Should be a nice landing page with "click here to authenticate" button or similar here -->
       <h1><a :href="authoriseURL">Authenticate</a></h1>
@@ -34,6 +34,9 @@ export default {
       "&response_type=token" + 
       "&redirect_uri=" + location.protocol + '//' + location.host + "/" +
       "&scope=" + this.scopes.join("%20")
+    },
+    desktop() {
+      return !/Mobi/i.test(window.navigator.userAgent);
     }
   },
 
@@ -61,7 +64,11 @@ export default {
       padding: $spacer*2 $spacer*4;
       box-sizing:border-box;
       min-height:100%;
-      max-width:140vh;
       margin: 0 auto;
+
+      &.desktop {
+        max-width:140vh;
+      }
+
     }
 </style>
