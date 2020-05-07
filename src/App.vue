@@ -65,6 +65,7 @@ export default {
       box-sizing:border-box;
       min-height:100%;
       margin: 0 auto;
+  background:$black;
 
       &.desktop {
         max-width:140vh;
