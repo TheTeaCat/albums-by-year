@@ -34,7 +34,7 @@ export default {
   @media(orientation: landscape) { flex-basis: 16.6%; }
 
   > * {
-    margin: $spacer;
+    margin-bottom: $spacer;
   }
 }
 
