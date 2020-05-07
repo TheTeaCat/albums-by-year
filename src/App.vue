@@ -58,10 +58,10 @@ export default {
 
 <style lang="scss">
     main {
-      background: $black;
-      color:$white;
       padding: $spacer*2 $spacer*4;
       box-sizing:border-box;
       min-height:100%;
+      max-width:140vh;
+      margin: 0 auto;
     }
 </style>
