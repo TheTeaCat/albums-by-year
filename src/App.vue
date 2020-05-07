@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
+  <main>
     <div v-if="!authorised"> 
       <!-- Should be a nice landing page with "click here to authenticate" button or similar here -->
-      <a :href="authoriseURL">Authenticate</a>
+      <h1><a :href="authoriseURL">Authenticate</a></h1>
     </div>
     <div v-else>
       <Library :access_token="access_token" />
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -56,7 +56,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-    @import './assets/css/reset.css';
-    @import './assets/css/styles.css';
+<style lang="scss">
+    main {
+      background: $black;
+      color:$white;
+      padding: $spacer*2 $spacer*4;
+      box-sizing:border-box;
+      min-height:100%;
+    }
 </style>

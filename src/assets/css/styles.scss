@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+html, body { 
+  height:100%; 
+}
+
+html {
+  font-family: 'Lato', sans-serif;
+}
+
+h1 { font-size:300%; }
+h2 { font-size:150%; }
+
+a { 
+  color: $white; 
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
