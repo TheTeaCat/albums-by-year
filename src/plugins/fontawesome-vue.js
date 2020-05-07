@@ -5,12 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { 
   faPlus,
-  faMinus 
+  faMinus,
+  faCodeBranch
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faPlus,
-  faMinus
+  faMinus,
+  faCodeBranch
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

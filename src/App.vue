@@ -1,13 +1,26 @@
 <template>
-  <main :class="{ desktop: desktop }">
-    <div v-if="!authorised"> 
+  <div :class="{ app:true, desktop: desktop }">
+    <div class="title">spotify-albums-by-year</div>
+
+    <main v-if="!authorised"> 
       <!-- Should be a nice landing page with "click here to authenticate" button or similar here -->
       <h1><a :href="authoriseURL">Authenticate</a></h1>
-    </div>
-    <div v-else>
+    </main>
+    <main v-else>
       <Library :access_token="access_token" />
-    </div>
-  </main>
+    </main>
+
+    <footer>
+      <ul>
+        <li>
+          <font-awesome-icon icon="code-branch" class="icon"
+          /><a href="https://github.com/TheTeaCat/spotify-albums-by-year/"
+          >Check me out on GitHub!</a>
+        </li>
+        <li>Made by <a href="http://joshuarainbow.co.uk/">Josh</a></li>
+      </ul>
+    </footer>
+  </div>
 </template>
 
 <script>
@@ -60,16 +73,49 @@ export default {
 </script>
 
 <style lang="scss">
-    main {
-      padding: $spacer*2 $spacer*4;
-      box-sizing:border-box;
-      min-height:100%;
-      margin: 0 auto;
+.app {
+  padding: $spacer*2 $spacer*4;
+  box-sizing:border-box;
+  min-height:100%;
+  margin: 0 auto;
   background:$black;
+  display:flex;
+  flex-direction: column;
 
-      &.desktop {
-        max-width:140vh;
-      }
+  &.desktop {
+    max-width:140vh;
+  }
+}
 
-    }
+.title {
+  color:$grey-ll;
+}
+
+footer {
+  padding-top: $spacer*3;
+  padding-bottom: $spacer;
+
+  flex-grow:1;
+  display:flex;
+  align-items: flex-end;
+
+  .icon {
+    margin-right: 0.25em;
+  }
+
+  a {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+  }
+
+  li {
+    display:inline-block;
+  }
+  li::after {
+    content:"|";
+    margin: 0 0.5em;
+    color: $grey-l;
+  }
+  li:last-child::after { content:""; }
+}
 </style>
