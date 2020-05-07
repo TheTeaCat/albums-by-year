@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <a v-if="!authorised" :href="authoriseURL">Authenticate</a>
+    <div v-if="!authorised"> 
+      <!-- Should be a nice landing page with "click here to authenticate" button or similar here -->
+      <a :href="authoriseURL">Authenticate</a>
+    </div>
     <div v-else>
-      <p>{{ access_token }}</p>
       <Library :access_token="access_token" />
     </div>
   </div>
