@@ -44,6 +44,8 @@ img {
 
 .album-title {
   font-weight:bold;
+  font-size:110%;
+
 }
 
 .artists-list {
