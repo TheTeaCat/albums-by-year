@@ -6,11 +6,11 @@
         :icon="expanded ? 'minus' : 'plus'" 
         :class="{ icon: true, expanded: expanded }"
         @click="expanded = !expanded"
-      /> {{ year }} <span>({{ albums.length }})</span>
+      /> {{ year }} <span>({{ sortedFilteredAlbums.length }})</span>
     </h2>
 
     <ol v-show="expanded" class="albums-list">
-      <Album v-for="album in sortedAlbums" :key="album.album.id"
+      <Album v-for="album in sortedFilteredAlbums" :key="album.album.id"
       :album="album"/>
     </ol>
   </li>
@@ -24,20 +24,20 @@ export default {
       Album
   },
 
-  props: ["access_token","year","albums"],
+  props: ["access_token","year","albums","album_types"],
 
   data() { return {
     expanded: false
   }},
 
   computed: {
-    sortedAlbums() {
+    sortedFilteredAlbums() {
       return this.albums.slice()
         .sort((a,b) => {
           var aa = a.album.release_date,
               bb = b.album.release_date;
           return aa > bb ? -1 : (aa < bb ? 1 : 0)
-      })
+      }).filter(album => this.album_types[album.album.album_type].show)
     }
   }
 }
