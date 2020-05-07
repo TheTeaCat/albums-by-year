@@ -43,9 +43,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.year, hr {
-  margin: $spacer*2 0;
-}
+.year, hr { margin: $spacer*2 0; }
+hr { border-color: $grey-l; }
 ol {
   margin: $spacer;
 
