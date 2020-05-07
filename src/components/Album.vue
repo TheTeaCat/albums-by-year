@@ -35,7 +35,7 @@ export default {
 
   > * {
     margin: $spacer;
-}
+  }
 }
 
 img {
@@ -49,6 +49,8 @@ img {
 }
 
 .artists-list {
+  color: $grey-ll;
+
   li {
     display:inline-block;
 
