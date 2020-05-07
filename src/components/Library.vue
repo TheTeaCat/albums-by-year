@@ -2,7 +2,7 @@
   <div class="library">
       <h1 v-if="profile">
         <a :href="profile.external_urls.spotify" class="username"
-          >{{ profile.display_name }}</a>{{ profile.display_name == 's' ? '\'' : '\'s' }}
+          >{{ profile.display_name }}</a>{{ profile.display_name[-1] == 's' ? '\'' : '\'s' }}
           saved albums, by year<span>!</span>
         </h1>
       <ol v-if="albumsByYear">
