@@ -32,6 +32,10 @@ export default {
   
   flex-basis:33.3%;
   @media(orientation: landscape) { flex-basis: 16.6%; }
+
+  > * {
+    margin: $spacer;
+}
 }
 
 img {
