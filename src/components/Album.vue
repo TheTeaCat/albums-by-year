@@ -7,6 +7,7 @@
             {{ artist.name }}
         </li>
     </ul>
+    <div class="album-release-date">{{ album.album.release_date }}</div>
   </li>
 </template>
 
