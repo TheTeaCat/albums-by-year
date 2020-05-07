@@ -4,6 +4,7 @@
     <h2 class="year-header">    
       <font-awesome-icon 
         :icon="expanded ? 'minus' : 'plus'" 
+        :class="{ icon: true, expanded: expanded }"
         @click="expanded = !expanded"
       /> {{ year }} ({{ albums.length }})
     </h2>
@@ -44,7 +45,13 @@ export default {
 
 <style lang="scss" scoped>
 .year, hr { margin: $spacer*2 0; }
+
 hr { border-color: $grey-l; }
+
+.icon.expanded {
+  color: $green;
+}
+
 ol {
   margin: $spacer;
 
