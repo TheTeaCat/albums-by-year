@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <a v-if="!authorised" :href="authorizeURL">Authenticate</a>
+    <a v-if="!authorised" :href="authoriseURL">Authenticate</a>
     <p v-else>{{ token }}</p>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
     token() {
       return this.$route.query.code
     },
-    authorizeURL() {
+    authoriseURL() {
       var scopes = ['user-library-read', 'user-modify-playback-state']
       var redirectUri = location.href
       var clientId = '8c00d93547824017b1854018ed35bdef'
