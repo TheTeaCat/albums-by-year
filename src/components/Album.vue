@@ -49,12 +49,10 @@ img {
 }
 
 .artists-list {
-  color: $grey-ll;
+  a { color: $grey-ll; }
+  a:hover { color: $green; }
 
-  li {
-    display:inline-block;
-
-  }
+  li { display:inline-block; }
   li::after {
     content:", ";
     white-space: pre;
