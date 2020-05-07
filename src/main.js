@@ -8,10 +8,6 @@ var router = new VueRouter({
   routes: []
 });
 
-import Spotify from 'spotify-web-api-node'
-import VueSpotify from 'vue-spotify'
-Vue.use(VueSpotify, new Spotify())
-
 Vue.config.productionTip = false
 
 new Vue({

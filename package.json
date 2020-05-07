@@ -11,8 +11,7 @@
     "core-js": "^3.6.4",
     "spotify-web-api-node": "^4.0.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.1.6",
-    "vue-spotify": "^1.0.2"
+    "vue-router": "^3.1.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
