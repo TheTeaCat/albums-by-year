@@ -1,24 +1,5 @@
 # spotify-albums-by-year
 
-## Project setup
-```
-npm install
-```
+It does what it says on the box, I guess.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Check it out at [https://theteacat.github.io/spotify-albums-by-year](https://theteacat.github.io/spotify-albums-by-year)
