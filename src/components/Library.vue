@@ -18,6 +18,7 @@
         :album_types="album_types"
         :access_token="access_token" />
       </ol>
+      <h2 v-show="loadedAlbums.length == 0">You haven't got any saved albums!</h2>
     </div>
   </div>
 </template>
@@ -104,6 +105,7 @@ export default {
 <style lang="scss" scoped>
 .library { width:100%; }
 h1 { margin: $spacer 0 $spacer*4 0; }
+h2 { margin: $spacer*4 0; }
 
 .loading {
   height:100%;
