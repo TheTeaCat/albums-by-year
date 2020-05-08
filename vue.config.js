@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: "/spotify-albums-by-year/",
   css: {
     loaderOptions: {
       sass: {

@@ -45,7 +45,7 @@ export default {
       return "https://accounts.spotify.com/authorize?" +
       "client_id=" + this.client_id +
       "&response_type=token" + 
-      "&redirect_uri=" + location.protocol + '//' + location.host + "/" +
+      "&redirect_uri=" + location.protocol + '//' + location.host + location.pathname +
       "&scope=" + this.scopes.join("%20")
     },
     desktop() {
