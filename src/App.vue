@@ -32,7 +32,7 @@ export default {
   },
   
   data() { return {
-    scopes: ['user-library-read', 'user-modify-playback-state'],
+    scopes: ['user-library-read'],
     client_id: "8c00d93547824017b1854018ed35bdef",
     access_token: null,
   }},
