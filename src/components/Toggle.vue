@@ -29,7 +29,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: $grey-l;
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 1.4em;
@@ -42,7 +42,7 @@ export default {
   width: 1em;
   left: 0.25em;
   bottom: 0.2em;
-  background-color: white;
+  background-color: $white;
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%;
