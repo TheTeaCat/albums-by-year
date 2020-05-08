@@ -12,6 +12,11 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+import VueAnalytics from 'vue-analytics'
+Vue.use(VueAnalytics, {
+  id: 'UA-165902876-1'
+})
+
 import "./plugins/fontawesome-vue";
 
 Vue.config.productionTip = false
