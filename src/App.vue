@@ -4,7 +4,7 @@
 
     <main v-if="!authorised"> 
       <!-- Should be a nice landing page with "click here to authenticate" button or similar here -->
-      <h1 class="auth"><a :href="authoriseURL">Click here</a> to log in with Spotify<span>!</span></h1>
+      <h1 class="auth"><a :href="authoriseURL" target="_self">Click here</a> to log in with Spotify<span>!</span></h1>
     </main>
     <main v-else>
       <Library :access_token="access_token" />
