@@ -1,5 +1,7 @@
 module.exports = {
-  publicPath: "/spotify-albums-by-year/",
+  publicPath: process.env.NODE_ENV === 'production'
+  ? '/spotify-albums-by-year/'	
+  : '/',
   css: {
     loaderOptions: {
       sass: {
