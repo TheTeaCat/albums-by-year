@@ -15,7 +15,7 @@
         <li>
           <font-awesome-icon icon="code-branch" class="icon"
           /><a href="https://github.com/TheTeaCat/spotify-albums-by-year/"
-          >Check me out on GitHub!</a>
+          >GitHub</a>
         </li>
         <li>Made by <a href="http://joshuarainbow.co.uk/">Josh</a></li>
       </ul>
