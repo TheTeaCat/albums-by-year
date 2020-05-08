@@ -1,28 +1,35 @@
 <template>
   <div class="library">
-      <h1 v-if="profile">
+    <div class="loading" v-if="!loaded">
+      <h1>Loading<LoadingEllipsis /></h1>
+    </div>
+    <div v-else>
+      <h1>
         <a :href="profile.external_urls.spotify" class="username"
           >{{ profile.display_name }}</a>{{ profile.display_name[-1] == 's' ? '\'' : '\'s' }}
           saved albums, by year<span>!</span>
         </h1>
       <ToggleGroup :options="album_types" :title="'Release Types'"/>
-      <ol v-if="albumsByYear">
+      <ol>
         <Year v-for="year in sortedAlbumYears" :key="year"
         :year="year"
         :albums="albumsByYear[year].albums"
         :album_types="album_types"
         :access_token="access_token" />
       </ol>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios"
+import LoadingEllipsis from "./LoadingEllipsis.vue";
 import ToggleGroup from "./ToggleGroup.vue";
 import Year from "./Year.vue";
 
 export default {
   components: {
+    LoadingEllipsis,
     ToggleGroup,
     Year
   },
@@ -54,6 +61,9 @@ export default {
     },
     sortedAlbumYears() {
       return Object.keys(this.albumsByYear).sort((a,b)=>{return b-a})
+    },
+    loaded() {
+      return this.albumsByYear && this.profile
     }
   },
 
@@ -84,4 +94,12 @@ export default {
 <style lang="scss" scoped>
 .library { width:100%; }
 h1 { margin: $spacer 0 $spacer*4 0; }
+
+.loading {
+  height:100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 </style>

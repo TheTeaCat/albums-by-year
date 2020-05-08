@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
 export default {
   props: ["access_token","album"],
 
