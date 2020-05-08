@@ -89,6 +89,7 @@ export default {
 
 .title {
   color:$grey-ll;
+  margin-bottom: $spacer;
 }
 
 main {
