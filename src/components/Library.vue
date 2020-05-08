@@ -1,7 +1,8 @@
 <template>
   <div class="library">
     <div class="loading" v-if="!loaded">
-      <h1>Loading<LoadingEllipsis /></h1>
+      <h1>Loading</h1>
+      <p class="album-count">{{ loadedAlbums }} albums</p>
     </div>
     <div v-else>
       <h1>
@@ -23,13 +24,11 @@
 
 <script>
 import axios from "axios"
-import LoadingEllipsis from "./LoadingEllipsis.vue";
 import ToggleGroup from "./ToggleGroup.vue";
 import Year from "./Year.vue";
 
 export default {
   components: {
-    LoadingEllipsis,
     ToggleGroup,
     Year
   },
@@ -46,6 +45,7 @@ export default {
                     "compilation":
                     { show:false, display:"Compilations" }
                     },
+      loadedAlbums: 0
   }},
   
   computed: {
@@ -67,19 +67,29 @@ export default {
     }
   },
 
-  mounted() {
-    axios.get(this.albums_request_url)
-      .then(
-        function(data) {
-          data = data["data"]["items"]
-          this.albumsByYear = {}
-          for (var album of data) {
-            const releaseYear = album["album"]["release_date"].split("-")[0]
-            this.albumsByYear[releaseYear] ? null : this.albumsByYear[releaseYear] = { year: releaseYear, albums: [] }
-            this.albumsByYear[releaseYear]["albums"].push(album)
-          }
-        }.bind(this)
-      )
+  async mounted() {
+    const load_albums = async function(request_url, albums) {
+      await axios.get(request_url)
+        .then(
+          async function(data) {
+            this.loadedAlbums += data.data.items.length
+            //Y'all ever heard of recursion?
+            if (data.data.next) {
+              await load_albums(data.data.next + "&access_token=" + this.access_token, albums)
+            }
+            data = data.data.items
+            for (var album of data) {
+              const releaseYear = album["album"]["release_date"].split("-")[0]
+              albums[releaseYear] ? null : albums[releaseYear] = { year: releaseYear, albums: [] }
+              albums[releaseYear]["albums"].push(album)
+            }
+          }.bind(this)
+        )
+      return albums
+    }.bind(this)
+
+    this.albumsByYear = await load_albums(this.albums_request_url, {})
+
     axios.get(this.profile_request_url)
       .then(
         function(data) {
@@ -101,5 +111,24 @@ h1 { margin: $spacer 0 $spacer*4 0; }
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  h1 { margin-bottom: $spacer*2; }
+  
+  h1:after {
+    position: absolute;
+    color: $green;
+    animation: ellipsis steps(4,end) 2000ms infinite;
+    content:"";
+  }
+  @keyframes ellipsis {
+    0% { content: "" }
+    25% { content: "." }
+    50% { content: ".." }
+    75% { content: "..." }
+  }
+
+  .album-count {
+    color: $grey-ll;    
+  }
 }
 </style>
