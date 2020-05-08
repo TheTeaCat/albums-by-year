@@ -1,5 +1,5 @@
 <template>
-  <li class="year">
+  <li class="year" v-show="sortedFilteredAlbums.length > 0">
     <hr>
     <h2 class="year-header">    
       <font-awesome-icon 
