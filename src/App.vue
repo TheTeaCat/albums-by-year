@@ -1,6 +1,6 @@
 <template>
   <div :class="{ app:true, desktop: desktop }">
-    <div class="title">Spotify Albums By Year</div>
+    <div class="title">Albums By Year</div>
 
     <main v-if="!authorised"> 
       <h1 class="auth"><a :href="authoriseURL" target="_self">Click here</a> to log in with Spotify<span>!</span></h1>
@@ -13,7 +13,7 @@
       <ul>
         <li>
           <font-awesome-icon icon="code-branch" class="icon"
-          /><a href="https://github.com/TheTeaCat/spotify-albums-by-year/"
+          /><a href="https://github.com/TheTeaCat/albums-by-year/"
           >GitHub</a>
         </li>
         <li>Made by <a href="http://joshuarainbow.co.uk/">Josh</a></li>
