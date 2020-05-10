@@ -1,6 +1,7 @@
 <template>
   <li class="year" v-show="visibleAlbums > 0">
     <hr>
+
     <h2 class="year-header">    
       <font-awesome-icon 
         :icon="expanded ? 'minus' : 'plus'" 
@@ -51,9 +52,8 @@ export default {
 
 hr { border-color: $grey-l; }
 
-.icon.expanded {
-  color: $green;
-}
+.icon.expanded { color: $green; }
+
 span {
   font-size:75%;
   color: $grey-ll;

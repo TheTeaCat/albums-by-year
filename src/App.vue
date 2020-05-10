@@ -3,7 +3,6 @@
     <div class="title">Spotify Albums By Year</div>
 
     <main v-if="!authorised"> 
-      <!-- Should be a nice landing page with "click here to authenticate" button or similar here -->
       <h1 class="auth"><a :href="authoriseURL" target="_self">Click here</a> to log in with Spotify<span>!</span></h1>
     </main>
     <main v-else>
@@ -74,17 +73,17 @@ export default {
 
 <style lang="scss">
 .app {
-  padding: $spacer*2 $spacer*4;
-  box-sizing:border-box;
   min-height:100%;
-  margin: 0 auto;
+
   background:$black;
+
+  margin: 0 auto;
+  padding: $spacer*2 $spacer*4;
+
   display:flex;
   flex-direction: column;
 
-  &.desktop {
-    max-width:140vh;
-  }
+  &.desktop { max-width:140vh; }
 }
 
 .title {
@@ -95,30 +94,27 @@ export default {
 main {
   flex-grow:1;
   display:flex;
-}
 
-.auth {
+  .auth {
   align-self: center;
   width:100%;
   text-align: center;
+}
+
 }
 
 footer {
   padding-top: $spacer*3;
   padding-bottom: $spacer;
 
-  .icon {
-    margin-right: 0.25em;
-  }
+  .icon { margin-right: 0.25em; }
 
   a {
     text-decoration: underline;
     text-decoration-style: dashed;
   }
 
-  li {
-    display:inline-block;
-  }
+  li { display:inline-block; }
   li::after {
     content:"|";
     margin: 0 0.5em;

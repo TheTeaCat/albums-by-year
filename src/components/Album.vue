@@ -1,11 +1,14 @@
 <template>
   <li class="album">
     <img v-if="albumCover" :src="albumCover">
+
     <div class="album-title"><a :href="album.album.external_urls.spotify">{{ album.album.name }}</a></div>
+
     <ul class="artists-list">
         <li v-for="artist in album.album.artists" :key="artist.id" 
         ><a :href="artist.external_urls.spotify">{{ artist.name }}</a></li>
     </ul>
+
     <div class="album-release-date">{{ album.album.release_date.replace(/-/g,"/") }}</div>
   </li>
 </template>

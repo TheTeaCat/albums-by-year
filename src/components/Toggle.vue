@@ -48,13 +48,9 @@ export default {
   border-radius: 50%;
 }
 
-input:checked + .slider {
-  background-color: $green;
-}
+input:checked + .slider { background-color: $green; }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px $green;
-}
+input:focus + .slider { box-shadow: 0 0 1px $green; }
 
 input:checked + .slider:before {
   -webkit-transform: translateX(1em);

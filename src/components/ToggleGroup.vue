@@ -25,11 +25,6 @@ ul, li {
   display:flex;
   align-items: center;
 }
-li {
-  margin-right: $spacer*4;
-}
-
-.toggle {
-  margin-right: 0.5em;
-}
+li { margin-right: $spacer*4; }
+.toggle { margin-right: 0.5em; }
 </style>
