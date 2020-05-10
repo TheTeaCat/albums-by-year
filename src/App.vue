@@ -1,6 +1,6 @@
 <template>
   <div :class="{ app:true, desktop: desktop }">
-    <div class="title">spotify-albums-by-year</div>
+    <div class="title">Spotify Albums By Year</div>
 
     <main v-if="!authorised"> 
       <!-- Should be a nice landing page with "click here to authenticate" button or similar here -->
