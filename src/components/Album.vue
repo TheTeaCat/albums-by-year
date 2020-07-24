@@ -37,24 +37,26 @@ export default {
 
   > * { margin-bottom: $spacer; }
   * { overflow-wrap:anywhere; }
-}
 
-img { width:100%; }
+  a { text-decoration: none; }
 
-.album-title {
-  font-weight:bold;
-  font-size:110%;
-}
+  img { width:100%; }
 
-.artists-list {
-  a { color: $grey-ll; }
-  a:hover { color: $green; }
-
-  li { display:inline-block; }
-  li::after {
-    content:", ";
-    white-space: pre;
+  .album-title {
+    font-weight:bold;
+    font-size:110%;
   }
-  li:last-child::after { content:""; }
+
+  .artists-list {
+    a { color: $grey-ll; }
+    a:hover { color: $green; }
+
+    li { display:inline-block; }
+    li::after {
+      content:", ";
+      white-space: pre;
+    }
+    li:last-child::after { content:""; }
+  }
 }
 </style>
