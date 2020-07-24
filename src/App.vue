@@ -12,7 +12,7 @@
     <footer>
       <ul>
         <li>
-          <font-awesome-icon icon="code-branch" class="icon"
+          <font-awesome-icon :icon="['fab', 'github']" class="icon"
           /><a href="https://github.com/TheTeaCat/albums-by-year/"
           >GitHub</a>
         </li>
