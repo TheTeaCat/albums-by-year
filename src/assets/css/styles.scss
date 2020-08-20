@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 html, body { height:100%; }
 
@@ -14,12 +14,13 @@ h2 { font-size:150%; }
 
 h1 > span {
     color: $green;
-    font-weight: bold;  
+    font-weight: 700;  
 }
-h1 > a { font-weight:bold; }
+h1 > a { font-weight:700; }
 
 a { 
   color: $white; 
+  text-decoration: none;
 }
 a:hover { 
   color: $green;

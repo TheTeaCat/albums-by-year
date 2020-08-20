@@ -43,7 +43,7 @@ export default {
   img { width:100%; }
 
   .album-title {
-    font-weight:bold;
+    font-weight:700;
     font-size:110%;
   }
 
