@@ -13,7 +13,7 @@ h1 { font-size:300%; }
 h2 { font-size:150%; }
 
 h1 > span {
-    color: $green;
+    color: $pink;
     font-weight: 700;  
 }
 h1 > a { font-weight:700; }
@@ -23,5 +23,5 @@ a {
   text-decoration: none;
 }
 a:hover { 
-  color: $green;
+  color: $pink;
 }

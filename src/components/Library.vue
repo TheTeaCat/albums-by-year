@@ -124,7 +124,7 @@ export default {
   
   .loading-title:after {
     position: absolute;
-    color: $green;
+    color: $pink;
     animation: ellipsis steps(4,end) 2000ms infinite;
     content:"";
   }

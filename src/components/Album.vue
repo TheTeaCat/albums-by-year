@@ -49,7 +49,7 @@ export default {
 
   .artists-list {
     a { color: $grey-ll; }
-    a:hover { color: $green; }
+    a:hover { color: $pink; }
 
     li { display:inline-block; }
     li::after {

@@ -52,7 +52,7 @@ export default {
 
 hr { border-color: $grey-l; }
 
-.icon.expanded { color: $green; }
+.icon.expanded { color: $pink; }
 
 span {
   font-size:75%;

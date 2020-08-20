@@ -116,13 +116,13 @@ main {
       text-align: center;
     }
     .auth {
-      background: $green-d;
+      background: $pink-d;
       padding: $spacer*2 $spacer*4;
       border-radius: $spacer*4;
       letter-spacing: 2px;
       font-weight:700;
       &:hover {
-        background: $green;
+        background: $pink;
         color: $white;
         text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
       }
