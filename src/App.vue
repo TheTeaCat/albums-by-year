@@ -90,13 +90,12 @@ export default {
 
 .header {
   color:$grey-ll;
-  margin-bottom: $spacer;
+  padding-top: $spacer;
 }
 
 main {
   flex-grow:1;
   display:flex;
-
   .login {
     margin: 0 auto;
     align-self: center;
