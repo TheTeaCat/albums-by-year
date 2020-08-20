@@ -108,7 +108,7 @@ main {
       color: $white;
       text-align: center;
       border-bottom: 1px solid $grey-l;
-      padding: $spacer*2 0;
+      padding: $spacer*3 0;
       width:100%;
     }
     .preface {
