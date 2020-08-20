@@ -1,12 +1,14 @@
 <template>
   <div :class="{ app:true, desktop: desktop }">
-    <div class="title">Albums By Year</div>
+    <div class="header">Albums By Year</div>
 
-    <main v-if="!authorised"> 
-      <h1 class="auth"><a :href="authoriseURL" target="_self">Click here</a> to log in with Spotify<span>!</span></h1>
-    </main>
-    <main v-else>
-      <Library :access_token="access_token" />
+    <main>
+      <div class="login" v-if="!authorised">
+        <h1 class="title">Albums By Year</h1>
+        <p class="preface">See your saved albums on spotify, categorised by year!</p>
+        <a class="auth" :href="authoriseURL" target="_self">LOG IN WITH SPOTIFY</a>
+      </div>
+      <Library v-else :access_token="access_token" />
     </main>
 
     <footer>
@@ -86,7 +88,7 @@ export default {
   &.desktop { max-width:140vh; }
 }
 
-.title {
+.header {
   color:$grey-ll;
   margin-bottom: $spacer;
 }
@@ -95,12 +97,38 @@ main {
   flex-grow:1;
   display:flex;
 
-  .auth {
-  align-self: center;
-  width:100%;
-  text-align: center;
-}
-
+  .login {
+    margin: 0 auto;
+    align-self: center;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    .title {
+      font-weight: 700;
+      color: $white;
+      text-align: center;
+      border-bottom: 1px solid $grey-l;
+      padding: $spacer*2 0;
+      width:100%;
+    }
+    .preface {
+      margin: $spacer*3 0;
+      font-size: 125%;
+      text-align: center;
+    }
+    .auth {
+      background: $green-d;
+      padding: $spacer*2 $spacer*4;
+      border-radius: $spacer*4;
+      letter-spacing: 2px;
+      font-weight:700;
+      &:hover {
+        background: $green;
+        color: $white;
+        text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+      }
+    }
+  }
 }
 
 footer {
