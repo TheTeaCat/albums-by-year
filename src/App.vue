@@ -121,10 +121,10 @@ main {
       border-radius: $spacer*4;
       letter-spacing: 2px;
       font-weight:700;
+      text-shadow: 0px 0px 5px rgba(0,0,0,0.7);
       &:hover {
         background: $pink;
         color: $white;
-        text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
       }
     }
   }
