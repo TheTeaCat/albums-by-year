@@ -1,6 +1,6 @@
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
-  ? '/albums-by-year/'	
+  ? '/albums-by-year/'
   : '/',
   css: {
     loaderOptions: {
@@ -15,4 +15,12 @@ module.exports = {
       }
     }
   },
+  pwa: {
+    name: 'Albums By Year',
+    themeColor: '#FF69B4',
+    msTileColor: '#121212',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black',
+    workboxPluginMode: 'GenerateSW',
+  }  
 };

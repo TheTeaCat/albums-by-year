@@ -13,6 +13,7 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
 import "./plugins/fontawesome-vue";
+import './registerServiceWorker'
 
 Vue.config.productionTip = false
 
