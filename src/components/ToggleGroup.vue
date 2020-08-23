@@ -28,7 +28,7 @@ ul, li {
   li { 
     display:flex;
     align-items: center;
-    margin-right: $spacer*4; 
+    margin-right: $spacer*2; 
     margin-bottom: $spacer; 
   }
 }
