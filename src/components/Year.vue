@@ -40,7 +40,9 @@ export default {
       })
     },
     visibleAlbums() {
-      return this.albums.filter(a => this.albumShown(a)).length
+      var albums_visible = this.albums.filter(a => this.albumShown(a)).length
+      this.$emit("filtered",albums_visible)
+      return albums_visible
     },
   },
 

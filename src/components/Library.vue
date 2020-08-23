@@ -27,10 +27,12 @@
         :albums="albumsByYear[year].albums"
         :album_types="album_types"
         :search_query="search_query"
-        :access_token="access_token" />
+        :access_token="access_token" 
+        @filtered="event => { albumsByYear[year].empty = event == 0; checkAlbumsShown() }"/>
       </ol>
 
-      <h2 v-show="loadedAlbums.length == 0">You haven't got any saved albums!</h2>
+      <h2 v-show="loadedAlbums.length == 0" class="empty-notice">You haven't got any saved albums!</h2>
+      <h2 v-show="no_albums_shown" class="empty-notice">None of your albums match these filters!</h2>
     </div>
   </div>
 </template>
@@ -59,7 +61,8 @@ export default {
                     { show:false, display:"Compilations" }
                     },
       loadedAlbums: 0,
-      search_query: ""
+      search_query: "",
+      no_albums_shown: false
   }},
   
   computed: {
@@ -78,7 +81,7 @@ export default {
     },
     loaded() {
       return this.albumsByYear && this.profile
-    }
+    },
   },
 
   methods: {
@@ -88,6 +91,9 @@ export default {
     searchQueryChange(event) {
       var value = event.target.value
       setTimeout(() => {value == this.$refs['searchBox'].value ? this.updateSearchQuery(event) : null}, 1000)
+    },
+    checkAlbumsShown() {
+      this.no_albums_shown = Object.keys(this.albumsByYear).map(year => this.albumsByYear[year].empty).every(x=>x)
     }
   },
 
@@ -166,6 +172,10 @@ export default {
     color: $pink;
     padding: $spacer;
   }
+}
+
+.empty-notice {
+  margin: $spacer*2 0;
 }
 
 .loading {
