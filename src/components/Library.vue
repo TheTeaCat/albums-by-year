@@ -138,6 +138,7 @@ export default {
   align-items: center;
   .searchbox {
     min-width:0;
+    width:150px;
     font-family: 'Lato', sans-serif;
     font-weight: 700;
     font-size:120%;
@@ -154,12 +155,14 @@ export default {
     &::placeholder {
       color: $grey-ll;
     }
+    @media(max-width:768px) {
+      flex-grow:1;      
+    }
   }
   .icon {
     flex-basis:10%;
-    flex-grow:0;
     height:100%;
-    max-height:30px;
+    max-height:25px;
     color: $pink;
     padding: $spacer;
   }

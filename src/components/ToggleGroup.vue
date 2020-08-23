@@ -21,9 +21,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul, li {
+ul {
   display:flex;
-  align-items: center;
   flex-wrap: wrap;
   li { 
     display:flex;
