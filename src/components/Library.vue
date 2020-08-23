@@ -8,17 +8,25 @@
     <div v-else>
       <h1 class="library-header">
         <a :href="profile.external_urls.spotify" class="username"
-          >{{ profile.display_name }}</a>{{ profile.display_name[-1] == 's' ? '\'' : '\'s' }}
+          >{{ profile.display_name }}</a>{{ profile.display_name[profile.display_name.length-1] == 's' ? '\'' : '\'s' }}
           saved albums, by year<span>!</span>
       </h1>
 
       <ToggleGroup :options="album_types" :title="'Release Types'"/>
+
+      <div class="searchbox-cont">
+        <input ref="searchBox" class="searchbox" placeholder="Filter by keyword..."
+              @keyup.enter="updateSearchQuery"
+              @keyup="searchQueryChange"/>
+        <font-awesome-icon icon="search" class="icon fa-fw" @click="updateSearchQuery"/>
+      </div>
 
       <ol>
         <Year v-for="year in sortedAlbumYears" :key="year"
         :year="year"
         :albums="albumsByYear[year].albums"
         :album_types="album_types"
+        :search_query="search_query"
         :access_token="access_token" />
       </ol>
 
@@ -50,7 +58,8 @@ export default {
                     "compilation":
                     { show:false, display:"Compilations" }
                     },
-      loadedAlbums: 0
+      loadedAlbums: 0,
+      search_query: ""
   }},
   
   computed: {
@@ -69,6 +78,16 @@ export default {
     },
     loaded() {
       return this.albumsByYear && this.profile
+    }
+  },
+
+  methods: {
+    updateSearchQuery() {
+      this.search_query = this.$refs['searchBox'].value.trim()
+    },
+    searchQueryChange(event) {
+      var value = event.target.value
+      setTimeout(() => {value == this.$refs['searchBox'].value ? this.updateSearchQuery(event) : null}, 1000)
     }
   },
 
@@ -112,6 +131,39 @@ export default {
 .library { width:100%; }
 
 .library-header { margin: $spacer 0 $spacer*4 0; }
+
+.searchbox-cont {
+  width:100%;
+  margin: $spacer*2 0;
+  display:flex;
+  align-items: center;
+  .searchbox {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size:120%;
+    padding: $spacer;
+    border:none;
+    border-bottom: 3px solid $pink;
+    background: $black;
+    color: $white;
+    transition: background 0.2s ease;
+    &:focus {
+      flex-grow:1;
+      background: $grey;      
+    }
+    &::placeholder {
+      color: $grey-ll;
+    }
+  }
+  .icon {
+    flex-basis:10%;
+    flex-grow:0;
+    height:100%;
+    max-height:30px;
+    color: $pink;
+    padding: $spacer;
+  }
+}
 
 .loading {
   height:100%;
