@@ -130,14 +130,14 @@ export default {
 <style lang="scss" scoped>
 .library { width:100%; }
 
-.library-header { margin: $spacer 0 $spacer*4 0; }
+.library-header { margin: $spacer 0 $spacer*3 0; }
 
 .searchbox-cont {
   width:100%;
-  margin: $spacer*2 0;
   display:flex;
   align-items: center;
   .searchbox {
+    min-width:0;
     font-family: 'Lato', sans-serif;
     font-weight: 700;
     font-size:120%;

@@ -24,7 +24,13 @@ export default {
 ul, li {
   display:flex;
   align-items: center;
+  flex-wrap: wrap;
+  li { 
+    display:flex;
+    align-items: center;
+    margin-right: $spacer*4; 
+    margin-bottom: $spacer; 
+  }
 }
-li { margin-right: $spacer*4; }
 .toggle { margin-right: 0.5em; }
 </style>
