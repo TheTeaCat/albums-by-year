@@ -15,7 +15,7 @@
       <ToggleGroup :options="album_types" :title="'Release Types'"/>
 
       <div class="searchbox-cont">
-        <input ref="searchBox" placeholder="Filter by keyword..."
+        <input placeholder="Search..."
               :class="{ searchbox:true, populated:searchBoxContent!='' }"
               v-model="searchBoxContent"
               @keyup.enter="updateSearchQuery"
@@ -90,11 +90,11 @@ export default {
 
   methods: {
     updateSearchQuery() {
-      this.search_query = this.$refs['searchBox'].value.trim()
+      this.search_query = this.searchBoxContent.trim()
     },
     searchQueryChange(event) {
       var value = event.target.value
-      setTimeout(() => {value == this.$refs['searchBox'].value ? this.updateSearchQuery(event) : null}, 1000)
+      setTimeout(() => {value == this.searchBoxContent ? this.updateSearchQuery(event) : null}, 1000)
     },
     clearSearchQuery() {
       this.searchBoxContent = ""
