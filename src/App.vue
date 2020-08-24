@@ -120,6 +120,7 @@ main {
       padding: $spacer*2 $spacer*4;
       border-radius: $spacer*4;
       letter-spacing: 2px;
+      text-align: center;
       font-weight:700;
       text-shadow: 0px 0px 5px rgba(0,0,0,0.7);
       &:hover {
