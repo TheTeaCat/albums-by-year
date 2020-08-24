@@ -158,15 +158,16 @@ export default {
     padding: $spacer;
     border:none;
     border-bottom: 3px solid $pink;
-    background: $black;
     color: $white;
-    transition: background 0.2s ease;
+    background: $black;
+    transition: background 0.2s ease, flex-basis 0.2s ease;
+    flex-basis:0;
     &:focus {
-      flex-grow:1;
       background: $grey;      
+      flex-basis:100%;
     }
     &.populated {
-      flex-grow:1;
+      flex-basis:100%;
     }
     &::placeholder {
       color: $grey-ll;
