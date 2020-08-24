@@ -11,13 +11,15 @@ library.add(
 import { 
   faPlus,
   faMinus,
-  faSearch
+  faSearch,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faPlus,
   faMinus,
-  faSearch
+  faSearch,
+  faTimes
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

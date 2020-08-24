@@ -15,10 +15,13 @@
       <ToggleGroup :options="album_types" :title="'Release Types'"/>
 
       <div class="searchbox-cont">
-        <input ref="searchBox" class="searchbox" placeholder="Filter by keyword..."
+        <input ref="searchBox" placeholder="Filter by keyword..."
+              :class="{ searchbox:true, populated:searchBoxContent!='' }"
+              v-model="searchBoxContent"
               @keyup.enter="updateSearchQuery"
               @keyup="searchQueryChange"/>
-        <font-awesome-icon icon="search" class="icon fa-fw" @click="updateSearchQuery"/>
+        <font-awesome-icon v-if="searchBoxContent==''" icon="search" class="icon fa-fw" @click="updateSearchQuery"/>
+        <font-awesome-icon v-else icon="times" class="icon fa-fw" @click="clearSearchQuery"/>
       </div>
 
       <ol>
@@ -62,6 +65,7 @@ export default {
                     },
       loadedAlbums: 0,
       search_query: "",
+      searchBoxContent:"",
       no_albums_shown: false
   }},
   
@@ -91,6 +95,10 @@ export default {
     searchQueryChange(event) {
       var value = event.target.value
       setTimeout(() => {value == this.$refs['searchBox'].value ? this.updateSearchQuery(event) : null}, 1000)
+    },
+    clearSearchQuery() {
+      this.searchBoxContent = ""
+      this.search_query = ""
     },
     checkAlbumsShown() {
       this.no_albums_shown = Object.keys(this.albumsByYear).map(year => this.albumsByYear[year].empty).every(x=>x)
@@ -143,7 +151,6 @@ export default {
   display:flex;
   align-items: center;
   .searchbox {
-    min-width:0;
     width:150px;
     font-family: 'Lato', sans-serif;
     font-weight: 700;
@@ -158,6 +165,9 @@ export default {
       flex-grow:1;
       background: $grey;      
     }
+    &.populated {
+      flex-grow:1;
+    }
     &::placeholder {
       color: $grey-ll;
     }
@@ -166,9 +176,8 @@ export default {
     }
   }
   .icon {
-    flex-basis:10%;
-    height:100%;
-    max-height:25px;
+    height:25px;
+    width:25px;
     color: $pink;
     padding: $spacer;
   }
