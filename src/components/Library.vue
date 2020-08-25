@@ -20,7 +20,7 @@
               v-model="searchBoxContent"
               @keyup.enter="updateSearchQuery"
               @keyup="searchQueryChange"/>
-        <font-awesome-icon v-if="searchBoxContent==''" icon="search" class="icon fa-fw" @click="updateSearchQuery"/>
+        <font-awesome-icon v-if="(searchBoxContent!=search_query)||searchBoxContent==''" icon="search" class="icon fa-fw" @click="updateSearchQuery"/>
         <font-awesome-icon v-else icon="times" class="icon fa-fw" @click="clearSearchQuery"/>
       </div>
 
