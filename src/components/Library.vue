@@ -144,7 +144,12 @@ export default {
 <style lang="scss" scoped>
 .library { width:100%; }
 
-.library-header { margin: $spacer 0 $spacer*3 0; }
+.library-header { 
+  margin: $spacer 0 $spacer*3 0; 
+  .username {
+    word-wrap: break-word;
+  }
+}
 
 .searchbox-cont {
   width:100%;
