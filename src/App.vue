@@ -42,7 +42,7 @@ export default {
     scopes: ['user-library-read'],
     client_id: "8c00d93547824017b1854018ed35bdef",
     access_token: null,
-    theme:{icon:"fill-drip",name:"system"}
+    theme:{icon:"moon",name:"dark",label:"Dark Theme"}
   }},
 
   computed: {
@@ -101,6 +101,8 @@ export default {
     //Get the theme from the user's cookie
     if (this.$cookies.isKey('theme')) {
       this.changeTheme(this.$cookies.get('theme'))
+    } else {
+      this.changeTheme("dark")
     }
   },
 }

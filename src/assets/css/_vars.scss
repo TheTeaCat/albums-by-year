@@ -42,5 +42,6 @@ $pink-ddd: #dd006f;
 
 :root { @include theme_default() }
 @media (prefers-color-scheme: light) { :root { @include theme_pink() } }
+@media (prefers-color-scheme: dark) { :root { @include theme_default() } }
 :root[theme="pink"] { @include theme_pink() }
 :root[theme="dark"] { @include theme_default() }
