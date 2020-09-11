@@ -2,10 +2,13 @@
   <div :class="{ app:true, desktop: desktop }">
     <div class="header">
       Albums By Year
-      <font-awesome-icon class="theme-icon" 
-                         :icon="theme.icon"
-                         @click="changeTheme"
-                         :title="theme.label"/>
+      <div class="theme-controls">
+        Theme: 
+        <font-awesome-icon class="theme-icon" 
+                          :icon="theme.icon"
+                          @click="changeTheme"
+                          :title="theme.label"/>
+      </div>
     </div>
 
     <main>
@@ -126,7 +129,7 @@ export default {
 .header {
   color:var(--text-colour-subtle);
   padding-top: $spacer;
-  .theme-icon { float:right; }
+  .theme-controls { float:right; }
 }
 
 main {
