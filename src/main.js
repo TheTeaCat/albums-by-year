@@ -14,7 +14,7 @@ Vue.use(VueAxios, axios)
 
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
-Vue.$cookies.config('7d')
+Vue.$cookies.config(60 * 60 * 24 * 365 * 10) //10 years
 
 import "./plugins/fontawesome-vue";
 import './registerServiceWorker'
