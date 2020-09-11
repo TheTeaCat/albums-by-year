@@ -12,6 +12,10 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+Vue.$cookies.config('7d')
+
 import "./plugins/fontawesome-vue";
 import './registerServiceWorker'
 

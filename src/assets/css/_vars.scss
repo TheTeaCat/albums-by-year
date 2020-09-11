@@ -1,5 +1,6 @@
 $spacer: 6px;
 
+$absolute-black: #000;
 $black: #121212;
 $grey-d: #181818;
 $grey: #383838;
@@ -8,5 +9,38 @@ $grey-ll: #b3b3b3;
 
 $white: #fff;
 
+$pink-lll: #fff6fa;
+$pink-ll: #ffddee;
+$pink-l: #ffbce0;
 $pink: #FF69B4;
 $pink-d: #FF1493;
+$pink-dd: #ff0088;
+$pink-ddd: #dd006f;
+
+@mixin theme_default() {
+  --background: #{$black};
+  --background-alt: #{$grey-l};
+  --background-alt-1: #{$pink};
+  --background-alt-2: #{$grey-l};
+  --background-alt-3: #{$grey-l};
+  --text-colour: #{$white};
+  --text-colour-alt: #{$pink};
+  --text-colour-subtle: #{$grey-ll};
+  --contast-assist-border: #{$black};
+}
+@mixin theme_pink() {
+  --background: #{$pink-lll};
+  --background-alt: #{$pink-l};
+  --background-alt-1: #{$pink-d};
+  --background-alt-2: #{$pink-ll};
+  --background-alt-3: #{$pink-d};
+  --text-colour: #{$absolute-black};
+  --text-colour-alt: #{$pink-ddd};
+  --text-colour-subtle: #{$grey-l};
+  --contast-assist-border: #{$grey-l};
+}
+
+:root { @include theme_default() }
+@media (prefers-color-scheme: light) { :root { @include theme_pink() } }
+:root[theme="pink"] { @include theme_pink() }
+:root[theme="dark"] { @include theme_default() }

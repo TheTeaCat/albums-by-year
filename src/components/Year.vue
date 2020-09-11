@@ -1,7 +1,5 @@
 <template>
   <li class="year" v-show="visibleAlbums > 0">
-    <hr>
-
     <h2 class="year-header" @click="expanded = !expanded">
       <font-awesome-icon 
         :icon="expanded ? 'minus' : 'plus'" 
@@ -58,15 +56,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.year, hr { margin: $spacer*2 0; }
+.year {
+  margin-top: $spacer*2;
+  padding-top: $spacer*2;
+  border-top: 2px solid var(--background-alt-3);
+}
 
-hr { border-color: $grey-l; }
-
-.icon.expanded { color: $pink; }
+.icon.expanded { color: var(--text-colour-alt); }
 
 span {
   font-size:75%;
-  color: $grey-ll;
+  color: var(--text-colour-subtle);
 }
 
 ol {

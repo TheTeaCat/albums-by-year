@@ -1,6 +1,11 @@
 <template>
   <div :class="{ app:true, desktop: desktop }">
-    <div class="header">Albums By Year</div>
+    <div class="header">
+      Albums By Year
+      <font-awesome-icon class="theme-icon" 
+                         :icon="theme.icon"
+                         @click="changeTheme"/>
+    </div>
 
     <main>
       <div class="login" v-if="!authorised">
@@ -36,6 +41,7 @@ export default {
     scopes: ['user-library-read'],
     client_id: "8c00d93547824017b1854018ed35bdef",
     access_token: null,
+    theme:{icon:"fill-drip",name:"system"}
   }},
 
   computed: {
@@ -54,6 +60,22 @@ export default {
     }
   },
 
+  methods: {
+    changeTheme(theme_name) {
+      const themes = ["system","dark","pink"]
+      const icons = {"system":"fill-drip","dark":"moon","pink":"ice-cream"}
+      console.log(theme_name)
+      if (themes.indexOf(theme_name) > 0) {
+        this.theme.name = theme_name
+      } else {
+        this.theme.name = themes[(themes.indexOf(this.theme.name)+1)%themes.length]
+      }
+      this.theme.icon = icons[this.theme.name]
+      document.getElementsByTagName("html")[0].setAttribute("theme", this.theme.name)
+      this.$cookies.set('theme',this.theme.name)
+    }
+  },
+
   mounted() {
     //Get access token from hash fragments...
     var hash_fragments = {}
@@ -69,6 +91,11 @@ export default {
     if (this.authorised) {
       this.$router.push(this.$route.path)
     }
+
+    //Get the theme from the user's cookie
+    if (this.$cookies.isKey('theme')) {
+      this.changeTheme(this.$cookies.get('theme'))
+    }
   },
 }
 </script>
@@ -77,7 +104,7 @@ export default {
 .app {
   min-height:100%;
 
-  background:$black;
+  background:var(--background);
 
   margin: 0 auto;
   padding: $spacer*2 $spacer*4;
@@ -89,8 +116,9 @@ export default {
 }
 
 .header {
-  color:$grey-ll;
+  color:var(--text-colour-subtle);
   padding-top: $spacer;
+  .theme-icon { float:right; }
 }
 
 main {
@@ -104,9 +132,8 @@ main {
     align-items: center;
     .title {
       font-weight: 700;
-      color: $white;
       text-align: center;
-      border-bottom: 1px solid $grey-l;
+      border-bottom: 1px solid var(--background-alt-1);
       padding: $spacer*3 0;
       width:100%;
     }
@@ -123,9 +150,9 @@ main {
       text-align: center;
       font-weight:700;
       text-shadow: 0px 0px 5px rgba(0,0,0,0.7);
+      color: $white;
       &:hover {
         background: $pink;
-        color: $white;
       }
     }
   }
@@ -146,7 +173,7 @@ footer {
   li::after {
     content:"|";
     margin: 0 0.5em;
-    color: $grey-l;
+    color: var(--text-colour-subtle);
   }
   li:last-child::after { content:""; }
 }

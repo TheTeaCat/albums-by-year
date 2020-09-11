@@ -162,29 +162,30 @@ export default {
     font-size:120%;
     padding: $spacer;
     border:none;
-    border-bottom: 3px solid $pink;
-    color: $white;
-    background: $black;
+    border-bottom: 3px solid var(--background-alt-1);
+    color: var(--text-colour);
+    background: var(--background);
     transition: background 0.2s ease, flex-basis 0.2s ease;
     flex-basis:0;
     &:focus {
-      background: $grey;      
+      background: var(--background-alt-2);      
       flex-basis:100%;
     }
     &.populated {
       flex-basis:100%;
     }
     &::placeholder {
-      color: $grey-ll;
+      color: var(--text-colour-subtle);
+      font-weight: 400;
     }
     @media(max-width:768px) {
-      flex-grow:1;      
+      flex-grow:1;
     }
   }
   .icon {
     height:25px;
     width:25px;
-    color: $pink;
+    color: var(--background-alt-1);
     padding: $spacer;
   }
 }
@@ -204,7 +205,7 @@ export default {
   
   .loading-title:after {
     position: absolute;
-    color: $pink;
+    color: var(--text-colour-alt);
     animation: ellipsis steps(4,end) 2000ms infinite;
     content:"";
   }
@@ -215,6 +216,6 @@ export default {
     75% { content: "..." }
   }
 
-  .album-count { color: $grey-ll; }
+  .album-count { color: var(--text-colour-subtle); }
 }
 </style>

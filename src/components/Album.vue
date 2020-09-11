@@ -48,8 +48,8 @@ export default {
   }
 
   .artists-list {
-    a { color: $grey-ll; }
-    a:hover { color: $pink; }
+    a { color: var(--text-colour-subtle); }
+    a:hover { color: var(--text-colour-alt); }
 
     li { display:inline-block; }
     li::after {

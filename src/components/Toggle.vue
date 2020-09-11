@@ -25,14 +25,15 @@ export default {
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: $grey-l;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background-color: var(--background-alt-2);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 1.4em;
+  border: 1px solid var(--contast-assist-border);
 }
 
 .slider:before {
@@ -42,7 +43,7 @@ export default {
   width: 1em;
   left: 0.25em;
   bottom: 0.2em;
-  background-color: $white;
+  background-color: var(--text-colour);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%;

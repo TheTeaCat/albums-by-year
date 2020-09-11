@@ -12,14 +12,20 @@ import {
   faPlus,
   faMinus,
   faSearch,
-  faTimes
+  faTimes,
+  faFillDrip,
+  faIceCream,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faPlus,
   faMinus,
   faSearch,
-  faTimes
+  faTimes,
+  faFillDrip,
+  faIceCream,
+  faMoon
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
