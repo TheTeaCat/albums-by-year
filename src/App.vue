@@ -4,7 +4,8 @@
       Albums By Year
       <font-awesome-icon class="theme-icon" 
                          :icon="theme.icon"
-                         @click="changeTheme"/>
+                         @click="changeTheme"
+                         :title="theme.label"/>
     </div>
 
     <main>
@@ -62,15 +63,20 @@ export default {
 
   methods: {
     changeTheme(theme_name) {
-      const themes = ["system","dark","pink"]
-      const icons = {"system":"fill-drip","dark":"moon","pink":"ice-cream"}
+      const themes = {
+        "system": {icon:"fill-drip",label:"System Theme"},
+        "dark": {icon:"moon",label:"Dark Theme"},
+        "pink": {icon:"ice-cream",label:"Pink Theme"}
+      }
       console.log(theme_name)
-      if (themes.indexOf(theme_name) > 0) {
+      if (Object.keys(themes).indexOf(theme_name) > 0) {
         this.theme.name = theme_name
       } else {
-        this.theme.name = themes[(themes.indexOf(this.theme.name)+1)%themes.length]
+        const theme_names = Object.keys(themes)
+        this.theme.name = theme_names[(theme_names.indexOf(this.theme.name)+1)%theme_names.length]
       }
-      this.theme.icon = icons[this.theme.name]
+      this.theme.icon = themes[this.theme.name].icon
+      this.theme.label = themes[this.theme.name].label
       document.getElementsByTagName("html")[0].setAttribute("theme", this.theme.name)
       this.$cookies.set('theme',this.theme.name)
     }
