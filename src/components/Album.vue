@@ -9,7 +9,7 @@
         ><a :href="artist.external_urls.spotify">{{ artist.name }}</a></li>
     </ul>
 
-    <div class="album-release-date">{{ album.album.release_date.replace(/-/g,"/") }}</div>
+    <div class="album-release-date">{{ release_date }}</div>
   </li>
 </template>
 
@@ -20,6 +20,21 @@ export default {
   data() { return {
       albumCover: null
   }},
+
+  computed: {
+    release_date() {
+      switch (this.album.album.release_date_precision) {
+        case 'year':
+          return this.album.album.release_date.split("-")[0]
+        case 'month':
+          return this.album.album.release_date.split("-").slice(0,2).join("/")
+        case 'day':
+          return this.album.album.release_date.replace(/-/g,"/")
+        default:
+          return ""
+      }
+    }
+  },
 
   mounted() {
       this.album.album.images.sort((a,b)=>{return b.width*b.height - a.width*a.height})[0]
