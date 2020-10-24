@@ -4,4 +4,4 @@ I wanted to see my saved albums on Spotify categorised by year. I had a google o
 
 > "Fine, I'll do it myself."
 
-Check it out @ [theteacat.github.io/albums-by-year](https://theteacat.github.io/albums-by-year)
+Check it out @ [albumsbyyear.joshuarainbow.co.uk](https://albumsbyyear.joshuarainbow.co.uk/)
