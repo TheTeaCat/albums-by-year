@@ -2,11 +2,10 @@
   <div :class="{ app:true, desktop: desktop }">
     <div class="header">
       Albums By Year
-      <div class="theme-controls">
+      <div class="theme-controls" @click="changeTheme">
         Theme: 
         <font-awesome-icon class="theme-icon" 
                           :icon="theme.icon"
-                          @click="changeTheme"
                           :title="theme.label"/>
       </div>
     </div>
