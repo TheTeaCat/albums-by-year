@@ -71,7 +71,6 @@ export default {
         "dark": {icon:"moon",label:"Dark Theme"},
         "pink": {icon:"ice-cream",label:"Pink Theme"}
       }
-      console.log(theme_name)
       if (Object.keys(themes).indexOf(theme_name) > 0) {
         this.theme.name = theme_name
       } else {
