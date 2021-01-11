@@ -37,7 +37,13 @@ export default {
   },
 
   mounted() {
-      this.album.album.images.sort((a,b)=>{return b.width*b.height - a.width*a.height})[0]
+    //Pick the image with the closest resolution to 300x300.
+      this.album.album.images.sort(
+        (a,b) => {
+          return Math.abs(a.width*a.height - 300*300)
+                 - Math.abs(b.width*b.height - 300*300)
+          }
+        )
       this.albumCover = this.album.album.images[0].url
   }
 }
