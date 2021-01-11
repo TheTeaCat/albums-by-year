@@ -15,7 +15,9 @@ import {
   faTimes,
   faFillDrip,
   faIceCream,
-  faMoon
+  faMoon,
+  faSignOutAlt,
+  faSyncAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -25,7 +27,9 @@ library.add(
   faTimes,
   faFillDrip,
   faIceCream,
-  faMoon
+  faMoon,
+  faSignOutAlt,
+  faSyncAlt
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

@@ -72,13 +72,11 @@ export default {
   computed: {
     albums_request_url() {
       return "https://api.spotify.com/v1/me/albums?" +
-      "access_token=" + this.access_token +
       "&limit=50" +
       "&offset=0"
     },
     profile_request_url() {
-      return "https://api.spotify.com/v1/me/?" +
-      "access_token=" + this.access_token
+      return "https://api.spotify.com/v1/me/?"
     },
     sortedAlbumYears() {
       return Object.keys(this.albumsByYear).sort((a,b)=>{return b-a})
@@ -89,6 +87,72 @@ export default {
   },
 
   methods: {
+    async loadProfile() {
+      const cache = await caches.open('albums-by-year-data-cache');
+
+      var response = await cache.match(this.profile_request_url)
+
+      //If no matching value in cache, then fetch the value & add it to the cache...
+      if (response == undefined) {
+        response = await axios.get(this.profile_request_url + "&access_token=" + this.access_token)
+        await cache.put(this.profile_request_url, new Response(JSON.stringify(response)))
+        response = await cache.match(this.profile_request_url)
+      }
+
+      //Get json from response:
+      var data = await response.json()
+
+      this.profile = data.data
+    },
+    async loadAlbums() {
+      const cache = await caches.open('albums-by-year-data-cache');
+
+      const load_albums_chunk = async function(request_url, albums) {  
+        //Check cache
+        var response = await cache.match(request_url, { ignoreVary: true })
+
+        //If no matching value in cache, then fetch the value & add it to the cache...
+        if (response == undefined) {
+          response = await axios.get(request_url + "&access_token=" + this.access_token)
+          await cache.put(request_url, new Response(JSON.stringify(response)))
+          response = await cache.match(request_url)
+        }
+
+        //Get json from response:
+        var data = await response.json()
+        data = data.data
+
+        //Increment number of albums loaded...
+        this.loadedAlbums += data.items.length
+
+        //Y'all ever heard of recursion?
+        if (data.next) {
+          await load_albums_chunk(data.next, albums)
+        }
+
+        //Add data.items to albums...
+        for (var album of data.items) {
+          if (album != undefined) {
+            const releaseYear = album["album"]["release_date"].split("-")[0]
+            albums[releaseYear] ? null : albums[releaseYear] = { year: releaseYear, albums: [] }
+            albums[releaseYear]["albums"].push(album)
+          }
+        }
+
+        this.$emit("loaded")
+        return albums
+      }.bind(this)
+
+      this.albumsByYear = await load_albums_chunk(this.albums_request_url, {})
+    },
+    async refresh() {
+      this.loadedAlbums = 0
+      this.albumsByYear = null
+      this.profile = null
+      await caches.delete('albums-by-year-data-cache')
+      this.loadProfile()
+      this.loadAlbums()
+    },
     updateSearchQuery() {
       this.search_query = this.searchBoxContent.trim()
     },
@@ -106,37 +170,8 @@ export default {
   },
 
   async mounted() {
-    const load_albums = async function(request_url, albums) {
-      await axios.get(request_url)
-                 .then(
-                   async function(data) {
-                     this.loadedAlbums += data.data.items.length
-
-                     //Y'all ever heard of recursion?
-                     if (data.data.next) {
-                       await load_albums(data.data.next + "&access_token=" + this.access_token, albums)
-                     }
-
-                     data = data.data.items
-
-                     for (var album of data) {
-                       const releaseYear = album["album"]["release_date"].split("-")[0]
-                       albums[releaseYear] ? null : albums[releaseYear] = { year: releaseYear, albums: [] }
-                       albums[releaseYear]["albums"].push(album)
-                     }
-                   }.bind(this)
-                  )
-        return albums
-    }.bind(this)
-
-    this.albumsByYear = await load_albums(this.albums_request_url, {})
-
-    axios.get(this.profile_request_url)
-      .then(
-        function(data) {
-          this.profile = data.data
-        }.bind(this)
-      )
+    this.loadProfile()
+    this.loadAlbums()
   },
 }
 </script>
