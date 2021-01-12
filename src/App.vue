@@ -97,6 +97,8 @@ export default {
     refresh() {
       //Can't refresh if there's no library
       if (!this.$refs['library']) { return }
+      //Can't refresh if the library is already loading
+      if (this.$refs['library'].albumsByYear == null) { return }
       //Can't refresh if already refreshing
       if (this.refreshing) { return }
       //Can't refresh if offline
