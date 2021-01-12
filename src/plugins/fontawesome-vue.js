@@ -1,7 +1,7 @@
 import Vue from "vue";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
@@ -15,7 +15,11 @@ import {
   faTimes,
   faFillDrip,
   faIceCream,
-  faMoon
+  faMoon,
+  faSignOutAlt,
+  faSyncAlt,
+  faWifi,
+  faSlash
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -25,7 +29,12 @@ library.add(
   faTimes,
   faFillDrip,
   faIceCream,
-  faMoon
+  faMoon,
+  faSignOutAlt,
+  faSyncAlt,
+  faWifi,
+  faSlash
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-layers', FontAwesomeLayers)

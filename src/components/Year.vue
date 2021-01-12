@@ -9,7 +9,7 @@
 
     <ol v-show="expanded" class="albums-list">
       <Album v-for="a in sortedAlbums" :key="a.album.id"
-      :album="a" v-show="albumShown(a)"/>
+             :album="a" v-show="albumShown(a)"/>
     </ol>
   </li>
 </template>
@@ -22,7 +22,7 @@ export default {
       Album
   },
 
-  props: ["access_token","year","albums","album_types","search_query"],
+  props: ["year","albums","album_types","search_query"],
 
   data() { return {
     expanded: false
