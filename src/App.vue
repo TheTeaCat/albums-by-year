@@ -91,7 +91,8 @@ export default {
     async logout() {
       this.access_token = null
       this.$cookies.remove("access_token")
-      await caches.delete('albums-by-year-data-cache')       
+      await caches.delete('albums-by-year-data-cache')
+      await caches.delete('albums-by-year-image-cache')
     },
     refresh() {
       //Can't refresh if there's no library
