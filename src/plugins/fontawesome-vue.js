@@ -19,7 +19,8 @@ import {
   faSignOutAlt,
   faSyncAlt,
   faWifi,
-  faSlash
+  faSlash,
+  faDownload
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -33,7 +34,8 @@ library.add(
   faSignOutAlt,
   faSyncAlt,
   faWifi,
-  faSlash
+  faSlash,
+  faDownload
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
