@@ -16,7 +16,9 @@
         <p class="preface">See your saved albums on spotify, categorised by year!</p>
         <a class="auth" :href="authoriseURL" target="_self">LOG IN WITH SPOTIFY</a>
       </div>
-      <Library v-else :access_token="access_token" ref="library" @loaded="refreshing=false"/>
+      <Library v-else :access_token="access_token" 
+                      ref="library" 
+                      @loaded="refreshing=false"/>
     </main>
 
     <footer>
@@ -27,10 +29,15 @@
                             title="Log Out"/>
           Log Out
         </li>
-        <li class="refresh-button" @click="refresh">
+        <li class="refresh-button" @click="refresh" :class="{ 'offline': !online }">
           <font-awesome-icon :class="{ 'icon':true, 'refreshing-icon':refreshing }"
+                            v-if="online"
                             icon="sync-alt"
                             title="Refresh"/>
+          <font-awesome-layers v-else class="icon">
+            <font-awesome-icon icon="wifi" />
+            <font-awesome-icon icon="slash" />
+          </font-awesome-layers>
           Refresh
         </li>
       </ul>
@@ -61,6 +68,7 @@ export default {
     access_token: null,
     theme:{icon:"moon",name:"dark",label:"Dark Theme"},
     refreshing:false,
+    online: false,
   }},
 
   computed: {
@@ -90,6 +98,8 @@ export default {
       if (!this.$refs['library']) { return }
       //Can't refresh if already refreshing
       if (this.refreshing) { return }
+      //Can't refresh if offline
+      if (!this.online) { return }
 
       this.refreshing = true
       this.$refs['library'].refresh()
@@ -114,20 +124,30 @@ export default {
   },
 
   async mounted() {
+    //Set if online
+    this.online = navigator.onLine
+    
+    //Add event listeners for online status
+    window.addEventListener("online",function(){this.online=true}.bind(this))
+    window.addEventListener("offline",function(){this.online=false}.bind(this))
+
     //Get access token from cookies...
     if (this.$cookies.isKey("access_token")) {
       this.access_token = this.$cookies.get("access_token")
-      //Check access token is still valid...
-      await axios.get(
-        "https://api.spotify.com/v1/me/?access_token=" + this.access_token
-        ).catch(
-          async function() { 
-            //If the access token is invalid, we clear the cache and the access_token.
-            this.access_token = null
-            this.$cookies.remove("access_token")
-            await caches.delete('albums-by-year-data-cache') 
-          }.bind(this)
-        )
+      //If online, access token is still valid...
+      if (this.online) {
+        await axios.get(
+          "https://api.spotify.com/v1/me/?access_token=" + this.access_token
+          ).catch(
+            async function() { 
+              //If the access token is invalid, we clear the cache and the access_token.
+              this.access_token = null
+              this.$cookies.remove("access_token")
+              await caches.delete('albums-by-year-data-cache')
+              await caches.delete('albums-by-year-image-cache')
+            }.bind(this)
+          )
+      }
     }
 
     //Get access token from hash fragments if one exists...
@@ -238,6 +258,11 @@ footer {
 
   ul {
     margin-top: $spacer*2;
+
+    .offline {
+      color: var(--text-colour-subtle);
+      text-decoration: line-through;
+    }
 
     li { 
       display:inline; 

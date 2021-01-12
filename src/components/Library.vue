@@ -30,7 +30,6 @@
         :albums="albumsByYear[year].albums"
         :album_types="album_types"
         :search_query="search_query"
-        :access_token="access_token" 
         @filtered="event => { albumsByYear[year].empty = event == 0; checkAlbumsShown() }"/>
       </ol>
 
