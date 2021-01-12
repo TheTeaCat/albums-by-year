@@ -94,7 +94,7 @@ export default {
       await caches.delete('albums-by-year-data-cache')
       await caches.delete('albums-by-year-image-cache')
     },
-    refresh() {
+    async refresh() {
       //Can't refresh if there's no library
       if (!this.$refs['library']) { return }
       //Can't refresh if the library is already loading
@@ -104,8 +104,24 @@ export default {
       //Can't refresh if offline
       if (!this.online) { return }
 
-      this.refreshing = true
-      this.$refs['library'].refresh()
+      //Check access token is still valid...
+      await axios.get(
+        "https://api.spotify.com/v1/me/?access_token=" + this.access_token
+        ).then(
+          async function() {
+            this.refreshing = true
+            this.$refs['library'].refresh()
+          }.bind(this)
+        ).catch(
+          async function(err) { 
+            //If the access token is invalid, we clear the cache and the access_token.
+            this.access_token = null
+            this.$cookies.remove("access_token")
+            await caches.delete('albums-by-year-data-cache')
+            await caches.delete('albums-by-year-image-cache')
+            window.location.replace(this.authoriseURL)
+          }.bind(this)
+        )
     },
     changeTheme(theme_name) {
       const themes = {
@@ -137,20 +153,6 @@ export default {
     //Get access token from cookies...
     if (this.$cookies.isKey("access_token")) {
       this.access_token = this.$cookies.get("access_token")
-      //If online, access token is still valid...
-      if (this.online) {
-        await axios.get(
-          "https://api.spotify.com/v1/me/?access_token=" + this.access_token
-          ).catch(
-            async function() { 
-              //If the access token is invalid, we clear the cache and the access_token.
-              this.access_token = null
-              this.$cookies.remove("access_token")
-              await caches.delete('albums-by-year-data-cache')
-              await caches.delete('albums-by-year-image-cache')
-            }.bind(this)
-          )
-      }
     }
 
     //Get access token from hash fragments if one exists...
