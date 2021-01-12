@@ -113,7 +113,7 @@ export default {
             this.$refs['library'].refresh()
           }.bind(this)
         ).catch(
-          async function(err) { 
+          async function() { 
             //If the access token is invalid, we clear the cache and the access_token.
             this.access_token = null
             this.$cookies.remove("access_token")
