@@ -55,7 +55,7 @@
           /><a href="https://github.com/TheTeaCat/albums-by-year/"
           >GitHub</a>
         </li>
-        <li>Made by <a href="http://joshuarainbow.co.uk/">Josh</a></li>
+        <li>Made by <a href="http://rainosullivan.com/">Josh</a></li>
       </ul>
     </footer>
   </div>
