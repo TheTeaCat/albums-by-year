@@ -22,6 +22,16 @@
     </ul>
 
     <div class="album-release-date">{{ release_date }}</div>
+
+    <button
+      class="copy-button"
+      @click="copyAlbumInfo"
+      :title="copyButtonTitle"
+      :class="{ copied: showCopiedState }"
+    >
+      <font-awesome-icon :icon="copyButtonIcon" />
+      {{ copyButtonText }}
+    </button>
   </li>
 </template>
 
@@ -37,6 +47,7 @@ export default {
       lazyCoverString: "",
       albumCoverLoaded: false,
       online: false,
+      showCopiedState: false,
     };
   },
 
@@ -52,6 +63,89 @@ export default {
         default:
           return "";
       }
+    },
+    copyButtonIcon() {
+      return this.showCopiedState ? "check" : "copy";
+    },
+    copyButtonText() {
+      return this.showCopiedState ? "Copied!" : "Copy";
+    },
+    copyButtonTitle() {
+      return this.showCopiedState
+        ? "Album info copied to clipboard"
+        : "Copy album info";
+    },
+  },
+
+  methods: {
+    async copyAlbumInfo() {
+      // Get the artist name (first artist if multiple)
+      const artistName =
+        this.album.album.artists.length > 0
+          ? this.album.album.artists[0].name
+          : "";
+
+      // Get the album cover image URL (prefer the medium resolution one)
+      let imageUrl = "";
+      if (this.album.album.images && this.album.album.images.length > 0) {
+        // Sort by resolution and pick medium size (around 300x300)
+        const sortedImages = this.album.album.images.slice().sort((a, b) => {
+          return (
+            Math.abs(a.width * a.height - 300 * 300) -
+            Math.abs(b.width * b.height - 300 * 300)
+          );
+        });
+        imageUrl = sortedImages[0].url;
+      }
+
+      // Format the album info
+      const albumInfo = {
+        title: this.album.album.name,
+        artist: artistName,
+        image: imageUrl,
+        url: this.album.album.external_urls.spotify,
+      };
+
+      // Convert to formatted JSON string
+      const jsonString = JSON.stringify(albumInfo, null, 8);
+
+      try {
+        // Copy to clipboard
+        await navigator.clipboard.writeText(jsonString);
+
+        // Show success state
+        this.showCopiedState = true;
+        setTimeout(() => {
+          this.showCopiedState = false;
+        }, 2000);
+      } catch (err) {
+        console.error("Failed to copy: ", err);
+        // Fallback for older browsers
+        this.fallbackCopyTextToClipboard(jsonString);
+      }
+    },
+
+    fallbackCopyTextToClipboard(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.top = "0";
+      textArea.style.left = "0";
+      textArea.style.position = "fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand("copy");
+        this.showCopiedState = true;
+        setTimeout(() => {
+          this.showCopiedState = false;
+        }, 2000);
+      } catch (err) {
+        console.error("Fallback: Could not copy text: ", err);
+      }
+
+      document.body.removeChild(textArea);
     },
   },
 
@@ -89,7 +183,10 @@ export default {
         responseType: "arraybuffer",
       });
       const lazyCover = Buffer.from(response.data, "binary").toString("base64");
-      await cache.put(albumCoverLowRes, new Response(JSON.stringify(lazyCover)));
+      await cache.put(
+        albumCoverLowRes,
+        new Response(JSON.stringify(lazyCover))
+      );
       response = await cache.match(albumCoverLowRes);
     }
 
@@ -98,7 +195,10 @@ export default {
 
     //Pick the image with the closest resolution to 300x300.
     await this.album.album.images.sort((a, b) => {
-      return Math.abs(a.width * a.height - 300 * 300) - Math.abs(b.width * b.height - 300 * 300);
+      return (
+        Math.abs(a.width * a.height - 300 * 300) -
+        Math.abs(b.width * b.height - 300 * 300)
+      );
     });
     this.albumCover = this.album.album.images[0].url;
   },
@@ -151,6 +251,43 @@ export default {
     }
     li:last-child::after {
       content: "";
+    }
+  }
+
+  .copy-button {
+    background: var(--background-alt-2);
+    border: 2px solid var(--background-alt-3);
+    color: var(--text-colour);
+    padding: calc($spacer / 2) $spacer;
+    border-radius: 4px;
+    font-size: 85%;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc($spacer / 2);
+    width: 100%;
+    font-family: inherit;
+
+    &:hover {
+      background: var(--background-alt-3);
+      border-color: var(--text-colour-alt);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &.copied {
+      background: var(--text-colour-alt);
+      color: var(--background);
+      border-color: var(--text-colour-alt);
+    }
+
+    svg {
+      font-size: 12px;
     }
   }
 }
