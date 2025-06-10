@@ -1,24 +1,26 @@
 import Vue from "vue";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon, FontAwesomeLayers } from "@fortawesome/vue-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon, FontAwesomeLayers } from "@fortawesome/vue-fontawesome";
 
 library.add(faGithub);
 
 import {
-  faPlus,
-  faMinus,
-  faSearch,
-  faTimes,
+  faCheck,
+  faCopy,
+  faDownload,
   faFillDrip,
   faIceCream,
+  faMinus,
   faMoon,
+  faPlus,
+  faSearch,
   faSignOutAlt,
-  faSyncAlt,
-  faWifi,
   faSlash,
-  faDownload,
+  faSyncAlt,
+  faTimes,
+  faWifi,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -33,7 +35,9 @@ library.add(
   faSyncAlt,
   faWifi,
   faSlash,
-  faDownload
+  faDownload,
+  faCopy,
+  faCheck
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
