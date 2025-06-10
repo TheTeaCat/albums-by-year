@@ -1,14 +1,12 @@
 import Vue from "vue";
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon, FontAwesomeLayers } from "@fortawesome/vue-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
-library.add(
-  faGithub
-)
+library.add(faGithub);
 
-import { 
+import {
   faPlus,
   faMinus,
   faSearch,
@@ -20,8 +18,8 @@ import {
   faSyncAlt,
   faWifi,
   faSlash,
-  faDownload
-} from '@fortawesome/free-solid-svg-icons'
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
 
 library.add(
   faPlus,
@@ -36,7 +34,7 @@ library.add(
   faWifi,
   faSlash,
   faDownload
-)
+);
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-Vue.component('font-awesome-layers', FontAwesomeLayers)
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component("font-awesome-layers", FontAwesomeLayers);
