@@ -80,14 +80,11 @@ export default {
 
   methods: {
     async copyAlbumInfo() {
-      // Get the artist name (first artist if multiple)
-      const artistName =
-        this.album.album.artists.length > 0
-          ? this.album.album.artists[0].name
-          : "";
-
       // This is the text that'll be copied to the clipboard
-      const clipboardText = `${artistName} - ${this.album.album.name}: ${this.album.album.external_urls.spotify}`;
+      const clipboardText =
+        this.album.album.artists.length > 0
+          ? `${this.album.album.artists[0].name} - ${this.album.album.name}: ${this.album.album.external_urls.spotify}`
+          : `${this.album.album.name}: ${this.album.album.external_urls.spotify}`;
 
       try {
         // Copy to clipboard
