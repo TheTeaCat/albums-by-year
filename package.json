@@ -5,52 +5,55 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "biome:check": "biome check .",
+    "biome:fix": "biome check --write .",
+    "biome:format": "biome format --write .",
+    "format": "npm run biome:format"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.35",
-    "@fortawesome/free-brands-svg-icons": "^5.15.3",
-    "@fortawesome/free-solid-svg-icons": "^5.15.3",
-    "@fortawesome/vue-fontawesome": "^0.1.10",
-    "axios": "^0.21.1",
-    "core-js": "^3.14.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/vue-fontawesome": "^2",
+    "axios": "^1.9.0",
+    "core-js": "^3.43.0",
     "register-service-worker": "^1.7.2",
-    "spotify-web-api-node": "^4.0.0",
-    "vue": "^2.6.14",
-    "vue-axios": "^2.1.5",
-    "vue-cookies": "^1.7.4",
-    "vue-router": "^3.5.1"
+    "spotify-web-api-node": "^5.0.2",
+    "vue": "^2.7.16",
+    "vue-axios": "^3.5.2",
+    "vue-cookies": "^1.8.6",
+    "vue-router": "^3.6.5"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-plugin-eslint": "~4.3.0",
-    "@vue/cli-plugin-pwa": "^4.5.13",
-    "@vue/cli-service": "~4.3.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.14",
-    "webpack": "^4.46.0"
+    "@babel/eslint-parser": "^7.27.5",
+    "@biomejs/biome": "1.9.4",
+    "@eslint/js": "^9.28.0",
+    "@vue/cli-plugin-babel": "^5",
+    "@vue/cli-plugin-eslint": "^5",
+    "@vue/cli-plugin-pwa": "^5",
+    "@vue/cli-service": "^5",
+    "eslint": "^7",
+    "eslint-plugin-vue": "^9",
+    "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
+    "vue-template-compiler": "^2.7.16",
+    "webpack": "^5.99.9"
   },
   "eslintConfig": {
     "root": true,
     "env": {
       "node": true
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
+    "extends": ["plugin:vue/essential", "eslint:recommended"],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser",
+      "requireConfigFile": false
     },
-    "rules": {}
+    "rules": {
+      "vue/multi-word-component-names": "off",
+      "vue/no-mutating-props": "warn"
+    }
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not dead"]
 }
