@@ -17,6 +17,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^2",
     "axios": "^1.9.0",
+    "buffer": "^6.0.3",
     "core-js": "^3.43.0",
     "register-service-worker": "^1.7.2",
     "spotify-web-api-node": "^5.0.2",
