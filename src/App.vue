@@ -1,12 +1,20 @@
 <template>
   <div :class="{ app:true, desktop: desktop }">
     <div class="header">
-      Albums By Year
       <div class="theme-controls" @click="changeTheme">
-        Theme: 
-        <font-awesome-icon class="theme-icon" 
+        Theme
+        <font-awesome-icon class="icon" 
                           :icon="theme.icon"
                           :title="theme.label"/>
+      </div>
+      <div class="title">
+        Albums By Year
+      </div>
+      <div class="install-button" v-if="installPromptEvent" @click="install">
+        Install
+        <font-awesome-icon class="icon" 
+                           icon="download"
+                           title="Install"/>
       </div>
     </div>
 
@@ -47,7 +55,7 @@
           /><a href="https://github.com/TheTeaCat/albums-by-year/"
           >GitHub</a>
         </li>
-        <li>Made by <a href="http://joshuarainbow.co.uk/">Josh</a></li>
+        <li>Made by <a href="http://rainosullivan.com/">Josh</a></li>
       </ul>
     </footer>
   </div>
@@ -69,6 +77,7 @@ export default {
     theme:{icon:"moon",name:"dark",label:"Dark Theme"},
     refreshing:false,
     online: false,
+    installPromptEvent: null,
   }},
 
   computed: {
@@ -94,7 +103,14 @@ export default {
       await caches.delete('albums-by-year-data-cache')
       await caches.delete('albums-by-year-image-cache')
     },
-    refresh() {
+    install() {
+      this.installPromptEvent.prompt()
+      this.installPromptEvent.userChoice.then((choice) => {
+        this.installPromptEvent = null;
+        console.log(choice)
+      })
+    },
+    async refresh() {
       //Can't refresh if there's no library
       if (!this.$refs['library']) { return }
       //Can't refresh if the library is already loading
@@ -104,8 +120,24 @@ export default {
       //Can't refresh if offline
       if (!this.online) { return }
 
-      this.refreshing = true
-      this.$refs['library'].refresh()
+      //Check access token is still valid...
+      await axios.get(
+        "https://api.spotify.com/v1/me/?access_token=" + this.access_token
+        ).then(
+          async function() {
+            this.refreshing = true
+            this.$refs['library'].refresh()
+          }.bind(this)
+        ).catch(
+          async function() { 
+            //If the access token is invalid, we clear the cache and the access_token.
+            this.access_token = null
+            this.$cookies.remove("access_token")
+            await caches.delete('albums-by-year-data-cache')
+            await caches.delete('albums-by-year-image-cache')
+            window.location.replace(this.authoriseURL)
+          }.bind(this)
+        )
     },
     changeTheme(theme_name) {
       const themes = {
@@ -134,23 +166,17 @@ export default {
     window.addEventListener("online",function(){this.online=true}.bind(this))
     window.addEventListener("offline",function(){this.online=false}.bind(this))
 
+    //Add beforeinstallprompt event listener
+    window.addEventListener('beforeinstallprompt', function(e) {
+      //Prevent the mini-infobar from appearing on mobile
+      e.preventDefault()
+      //Stash the event to be triggered later
+      this.installPromptEvent = e
+    }.bind(this))
+
     //Get access token from cookies...
     if (this.$cookies.isKey("access_token")) {
       this.access_token = this.$cookies.get("access_token")
-      //If online, access token is still valid...
-      if (this.online) {
-        await axios.get(
-          "https://api.spotify.com/v1/me/?access_token=" + this.access_token
-          ).catch(
-            async function() { 
-              //If the access token is invalid, we clear the cache and the access_token.
-              this.access_token = null
-              this.$cookies.remove("access_token")
-              await caches.delete('albums-by-year-data-cache')
-              await caches.delete('albums-by-year-image-cache')
-            }.bind(this)
-          )
-      }
     }
 
     //Get access token from hash fragments if one exists...
@@ -201,9 +227,17 @@ export default {
   &.desktop { max-width:140vh; }
 }
 
+.icon { margin: 0 0.25em; }
+
 .header {
   color:var(--text-colour-subtle);
   padding-top: $spacer;
+
+  .install-button {
+    margin: $spacer 0;
+    display:inline-block;
+  }
+
   .theme-controls { float:right; }
 }
 
@@ -251,8 +285,6 @@ footer {
   display:flex;
   justify-content: space-between;
   flex-wrap: wrap;
-
-  .icon { margin: 0 0.25em; }
 
   a {
     text-decoration: underline;

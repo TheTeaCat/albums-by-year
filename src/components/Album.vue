@@ -64,7 +64,6 @@ export default {
 
     //...If it's not there, load and cache it as a base64 string...
     if (response == undefined) {
-      console.log("Image not cached :(")
       response = await axios.get(albumCoverLowRes, { responseType: 'arraybuffer' })
       const lazyCover = Buffer.from(response.data, 'binary').toString('base64')
       await cache.put(albumCoverLowRes, new Response(JSON.stringify(lazyCover)))
