@@ -1,24 +1,28 @@
 module.exports = {
-  publicPath: '/',
+  publicPath: "/",
   css: {
     loaderOptions: {
       sass: {
         // @/ is an alias to src/
         // so this assumes you have a file named `src/variables.scss`
-        prependData: `
-        @import '~@/assets/css/reset.css';
-        @import "~@/assets/css/_vars";
-        @import "~@/assets/css/styles.scss";        
-        `
-      }
-    }
+        additionalData: `
+        @use "sass:meta";
+        @use "~@/assets/css/_vars" as *;
+        `,
+        implementation: require("sass"),
+        sassOptions: {
+          // Use modern API
+          api: "modern-compiler",
+        },
+      },
+    },
   },
   pwa: {
-    name: 'Albums By Year',
-    themeColor: '#FF69B4',
-    msTileColor: '#121212',
-    appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: 'black',
-    workboxPluginMode: 'GenerateSW',
-  }  
+    name: "Albums By Year",
+    themeColor: "#FF69B4",
+    msTileColor: "#121212",
+    appleMobileWebAppCapable: "yes",
+    appleMobileWebAppStatusBarStyle: "black",
+    workboxPluginMode: "GenerateSW",
+  },
 };

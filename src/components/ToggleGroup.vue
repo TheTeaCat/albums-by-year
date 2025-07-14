@@ -1,9 +1,11 @@
 <template>
   <ul>
     <li v-for="option in Object.keys(options)" :key="option">
-      <Toggle class="toggle" 
-              :value="options[option].show" 
-              @change="options[option].show=!options[option].show" />
+      <Toggle
+        class="toggle"
+        :value="options[option].show"
+        @change="options[option].show = !options[option].show"
+      />
       {{ options[option].display }}
     </li>
   </ul>
@@ -14,22 +16,24 @@ import Toggle from "./Toggle.vue";
 
 export default {
   components: {
-    Toggle
+    Toggle,
   },
   props: ["title", "options"],
-}
+};
 </script>
 
 <style lang="scss" scoped>
 ul {
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
-  li { 
-    display:flex;
+  li {
+    display: flex;
     align-items: center;
-    margin-right: $spacer*2; 
-    margin-bottom: $spacer; 
+    margin-right: $spacer * 2;
+    margin-bottom: $spacer;
   }
 }
-.toggle { margin-right: 0.5em; }
+.toggle {
+  margin-right: 0.5em;
+}
 </style>
