@@ -86,33 +86,12 @@ export default {
           ? this.album.album.artists[0].name
           : "";
 
-      // Get the album cover image URL (prefer the medium resolution one)
-      let imageUrl = "";
-      if (this.album.album.images && this.album.album.images.length > 0) {
-        // Sort by resolution and pick medium size (around 300x300)
-        const sortedImages = this.album.album.images.slice().sort((a, b) => {
-          return (
-            Math.abs(a.width * a.height - 300 * 300) -
-            Math.abs(b.width * b.height - 300 * 300)
-          );
-        });
-        imageUrl = sortedImages[0].url;
-      }
-
-      // Format the album info
-      const albumInfo = {
-        title: this.album.album.name,
-        artist: artistName,
-        image: imageUrl,
-        url: this.album.album.external_urls.spotify,
-      };
-
-      // Convert to formatted JSON string
-      const jsonString = JSON.stringify(albumInfo, null, 8);
+      // This is the text that'll be copied to the clipboard
+      const clipboardText = `${artistName} - ${this.album.album.name}: ${this.album.album.external_urls.spotify}`;
 
       try {
         // Copy to clipboard
-        await navigator.clipboard.writeText(jsonString);
+        await navigator.clipboard.writeText(clipboardText);
 
         // Show success state
         this.showCopiedState = true;
@@ -122,7 +101,7 @@ export default {
       } catch (err) {
         console.error("Failed to copy: ", err);
         // Fallback for older browsers
-        this.fallbackCopyTextToClipboard(jsonString);
+        this.fallbackCopyTextToClipboard(clipboardText);
       }
     },
 
