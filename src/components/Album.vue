@@ -1,15 +1,25 @@
 <template>
   <li class="album">
-    <img
-      v-if="lazyCoverString && !albumCoverLoaded"
-      :src="'data:image/jpeg;base64,' + lazyCoverString"
-    />
-    <img
-      v-if="online || albumCoverLoaded"
-      v-show="albumCoverLoaded"
-      @load="albumCoverLoaded = true"
-      :src="albumCover"
-    />
+    <div class="image-container">
+      <img
+        v-if="lazyCoverString && !albumCoverLoaded"
+        :src="'data:image/jpeg;base64,' + lazyCoverString"
+      />
+      <img
+        v-if="online || albumCoverLoaded"
+        v-show="albumCoverLoaded"
+        @load="albumCoverLoaded = true"
+        :src="albumCover"
+      />
+      <button
+        class="copy-button"
+        @click="copyAlbumInfo"
+        :title="copyButtonTitle"
+        :class="{ copied: showCopiedState }"
+      >
+        <font-awesome-icon :icon="copyButtonIcon" />
+      </button>
+    </div>
 
     <div class="album-title">
       <a :href="album.album.external_urls.spotify">{{ album.album.name }}</a>
@@ -22,16 +32,6 @@
     </ul>
 
     <div class="album-release-date">{{ release_date }}</div>
-
-    <button
-      class="copy-button"
-      @click="copyAlbumInfo"
-      :title="copyButtonTitle"
-      :class="{ copied: showCopiedState }"
-    >
-      <font-awesome-icon :icon="copyButtonIcon" />
-      {{ copyButtonText }}
-    </button>
   </li>
 </template>
 
@@ -40,7 +40,7 @@ import axios from "axios";
 import { Buffer } from 'buffer';
 
 export default {
-  props: ["album"],
+  props: ["album", "copy_mode"],
 
   data() {
     return {
@@ -68,9 +68,6 @@ export default {
     copyButtonIcon() {
       return this.showCopiedState ? "check" : "copy";
     },
-    copyButtonText() {
-      return this.showCopiedState ? "Copied!" : "Copy";
-    },
     copyButtonTitle() {
       return this.showCopiedState
         ? "Album info copied to clipboard"
@@ -80,11 +77,23 @@ export default {
 
   methods: {
     async copyAlbumInfo() {
-      // This is the text that'll be copied to the clipboard
-      const clipboardText =
-        this.album.album.artists.length > 0
+      let clipboardText;
+      
+      if (this.copy_mode === "json") {
+        // Create JSON object to copy to clipboard
+        const albumData = {
+          title: this.album.album.name,
+          artist: this.album.album.artists.length > 0 ? this.album.album.artists[0].name : "",
+          image: this.albumCover,
+          url: this.album.album.external_urls.spotify,
+        };
+        clipboardText = JSON.stringify(albumData, null, 2);
+      } else {
+        // Create text format to copy to clipboard
+        clipboardText = this.album.album.artists.length > 0
           ? `${this.album.album.artists[0].name} - ${this.album.album.name}: ${this.album.album.external_urls.spotify}`
           : `${this.album.album.name}: ${this.album.album.external_urls.spotify}`;
+      }
 
       try {
         // Copy to clipboard
@@ -202,8 +211,55 @@ export default {
     text-decoration: none;
   }
 
-  img {
+  .image-container {
+    position: relative;
     width: 100%;
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.7);
+      border: none;
+      color: white;
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      opacity: 0;
+      transform: scale(0.8);
+      font-size: 14px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.9);
+        transform: scale(1);
+      }
+
+      &.copied {
+        background: var(--text-colour-alt);
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      svg {
+        font-size: 12px;
+      }
+    }
+
+    &:hover .copy-button {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .album-title {
@@ -231,41 +287,5 @@ export default {
     }
   }
 
-  .copy-button {
-    background: var(--background-alt-2);
-    border: 2px solid var(--background-alt-3);
-    color: var(--text-colour);
-    padding: calc($spacer / 2) $spacer;
-    border-radius: 4px;
-    font-size: 85%;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: calc($spacer / 2);
-    width: 100%;
-    font-family: inherit;
-
-    &:hover {
-      background: var(--background-alt-3);
-      border-color: var(--text-colour-alt);
-    }
-
-    &:active {
-      transform: translateY(1px);
-    }
-
-    &.copied {
-      background: var(--text-colour-alt);
-      color: var(--background);
-      border-color: var(--text-colour-alt);
-    }
-
-    svg {
-      font-size: 12px;
-    }
-  }
 }
 </style>

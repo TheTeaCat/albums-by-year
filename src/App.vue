@@ -25,10 +25,13 @@
         <a class="auth" :href="authoriseURL" target="_self"
           >LOG IN WITH SPOTIFY</a
         >
+        <button v-if="isDevelopment" class="demo-button" @click="enableDemoMode">VIEW DEMO</button>
       </div>
       <Library
         v-else
         :access_token="access_token"
+        :demo_mode="demo_mode"
+        :copy_mode="copyMode"
         ref="library"
         @loaded="refreshing = false"
       />
@@ -38,7 +41,7 @@
       <ul class="footer-buttons" v-if="authorised">
         <li class="logout-button" @click="logout">
           <font-awesome-icon class="icon" icon="sign-out-alt" title="Log Out" />
-          Log Out
+          {{ demo_mode ? "Exit Demo" : "Log Out" }}
         </li>
         <li
           class="refresh-button"
@@ -59,6 +62,21 @@
         </li>
       </ul>
       <ul>
+        <li
+          class="copy-mode-toggle"
+          @click="toggleCopyMode"
+          :title="
+            copyMode === 'text'
+              ? 'Switch to JSON copy mode'
+              : 'Switch to text copy mode'
+          "
+        >
+          <font-awesome-icon
+            :icon="copyMode === 'json' ? 'code' : 'align-left'"
+            class="icon"
+          />
+          <a>{{ copyMode === "json" ? "JSON" : "Text" }}</a>
+        </li>
         <li>
           <font-awesome-icon :icon="['fab', 'github']" class="icon" /><a
             href="https://github.com/TheTeaCat/albums-by-year/"
@@ -89,12 +107,15 @@ export default {
       refreshing: false,
       online: false,
       installPromptEvent: null,
+      demo_mode: false,
+      copyMode: "text", // "text" or "json"
+      isDevelopment: process.env.NODE_ENV === "development",
     };
   },
 
   computed: {
     authorised() {
-      return !!this.access_token;
+      return !!this.access_token || this.demo_mode;
     },
     authoriseURL() {
       return `https://accounts.spotify.com/authorize?client_id=${
@@ -111,9 +132,17 @@ export default {
   methods: {
     async logout() {
       this.access_token = null;
+      this.demo_mode = false;
       this.$cookies.remove("access_token");
       await caches.delete("albums-by-year-data-cache");
       await caches.delete("albums-by-year-image-cache");
+    },
+    enableDemoMode() {
+      this.demo_mode = true;
+      this.access_token = "demo_token"; // Dummy token for demo mode
+    },
+    toggleCopyMode() {
+      this.copyMode = this.copyMode === "text" ? "json" : "text";
     },
     install() {
       this.installPromptEvent.prompt();
@@ -135,8 +164,14 @@ export default {
       if (this.refreshing) {
         return;
       }
-      //Can't refresh if offline
-      if (!this.online) {
+      //Can't refresh if offline (unless in demo mode)
+      if (!this.online && !this.demo_mode) {
+        return;
+      }
+
+      if (this.demo_mode) {
+        this.refreshing = true;
+        this.$refs.library.refresh();
         return;
       }
 
@@ -171,11 +206,15 @@ export default {
       } else {
         const theme_names = Object.keys(themes);
         this.theme.name =
-          theme_names[(theme_names.indexOf(this.theme.name) + 1) % theme_names.length];
+          theme_names[
+            (theme_names.indexOf(this.theme.name) + 1) % theme_names.length
+          ];
       }
       this.theme.icon = themes[this.theme.name].icon;
       this.theme.label = themes[this.theme.name].label;
-      document.getElementsByTagName("html")[0].setAttribute("theme", this.theme.name);
+      document
+        .getElementsByTagName("html")[0]
+        .setAttribute("theme", this.theme.name);
       this.$cookies.set("theme", this.theme.name);
     },
   },
@@ -231,7 +270,7 @@ export default {
       this.$router.push(this.$route.path);
     }
 
-    /* Set access token in cookie. 
+    /* Set access token in cookie.
        This is low risk security-wise as it's only a read-only token.
     */
     if (this.authorised) {
@@ -316,8 +355,27 @@ main {
       font-weight: 700;
       text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.7);
       color: $white;
+      margin-bottom: $spacer * 2;
       &:hover {
         background: $pink;
+      }
+    }
+    .demo-button {
+      background: var(--background-alt-2);
+      border: 2px solid var(--background-alt-3);
+      color: var(--text-colour);
+      padding: $spacer * 1.5 $spacer * 3;
+      border-radius: $spacer * 2;
+      letter-spacing: 1px;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      font-size: 90%;
+      &:hover {
+        background: var(--background-alt-3);
+        border-color: var(--text-colour-alt);
       }
     }
   }
@@ -329,6 +387,7 @@ footer {
 
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   flex-wrap: wrap;
 
   a {
@@ -376,6 +435,35 @@ footer {
       .refreshing-icon {
         animation: spin linear 1000ms infinite;
       }
+    }
+  }
+
+  .copy-mode-toggle {
+    display: inline;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    user-select: none;
+
+    &:hover {
+      color: var(--text-colour-alt);
+      cursor: pointer;
+    }
+
+    .icon {
+      margin-right: 0.25em;
+    }
+
+    a {
+      cursor: pointer;
+      text-decoration: inherit;
+      color: inherit;
+    }
+
+    &::after {
+      content: "|";
+      margin: 0 0.5em;
+      color: var(--text-colour-subtle);
     }
   }
 }
