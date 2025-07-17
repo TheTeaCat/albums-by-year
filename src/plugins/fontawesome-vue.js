@@ -21,6 +21,7 @@ import {
   faSyncAlt,
   faTimes,
   faWifi,
+  faCode,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -37,7 +38,8 @@ library.add(
   faSlash,
   faDownload,
   faCopy,
-  faCheck
+  faCheck,
+  faCode
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);

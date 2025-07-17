@@ -32,12 +32,25 @@
     </ul>
 
     <div class="album-release-date">{{ release_date }}</div>
+
+    <button
+      class="copy-button"
+      @click.exact="copyPlaintextInfo"
+      @click.shift="copyJsonInfo"
+      @mouseover.shift="setJsonMode"
+      @mouseleave="setTextMode"
+      :title="copyButtonTitle"
+      :class="{ copied: showCopiedState }"
+    >
+      <font-awesome-icon :icon="copyButtonIcon" />
+      {{ copyButtonText }}
+    </button>
   </li>
 </template>
 
 <script>
 import axios from "axios";
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 
 export default {
   props: ["album", "copy_mode"],
@@ -49,6 +62,7 @@ export default {
       albumCoverLoaded: false,
       online: false,
       showCopiedState: false,
+      copyMode: "text",
     };
   },
 
@@ -66,35 +80,45 @@ export default {
       }
     },
     copyButtonIcon() {
-      return this.showCopiedState ? "check" : "copy";
+      return this.showCopiedState ? "check" : this.copyMode === "json" ? "code" : "copy";
+    },
+    copyButtonText() {
+      return this.showCopiedState ? "Copied!" : this.copyMode === "json" ? "JSON" : "Copy";
     },
     copyButtonTitle() {
-      return this.showCopiedState
-        ? "Album info copied to clipboard"
-        : "Copy album info";
+      return this.showCopiedState ? "Album info copied to clipboard" : "Copy album info";
     },
   },
 
   methods: {
-    async copyAlbumInfo() {
-      let clipboardText;
-      
-      if (this.copy_mode === "json") {
-        // Create JSON object to copy to clipboard
-        const albumData = {
-          title: this.album.album.name,
-          artist: this.album.album.artists.length > 0 ? this.album.album.artists[0].name : "",
-          image: this.albumCover,
-          url: this.album.album.external_urls.spotify,
-        };
-        clipboardText = JSON.stringify(albumData, null, 2);
-      } else {
-        // Create text format to copy to clipboard
-        clipboardText = this.album.album.artists.length > 0
+    async setJsonMode() {
+      this.copyMode = "json";
+    },
+    async setTextMode() {
+      this.copyMode = "text";
+    },
+    async copyJsonInfo() {
+      this.copyAlbumInfo(
+        JSON.stringify(
+          {
+            title: this.album.album.name,
+            artist: this.album.album.artists.length > 0 ? this.album.album.artists[0].name : "",
+            image: this.albumCover,
+            url: this.album.album.external_urls.spotify,
+          },
+          null,
+          2
+        )
+      );
+    },
+    async copyPlaintextInfo() {
+      this.copyAlbumInfo(
+        this.album.album.artists.length > 0
           ? `${this.album.album.artists[0].name} - ${this.album.album.name}: ${this.album.album.external_urls.spotify}`
-          : `${this.album.album.name}: ${this.album.album.external_urls.spotify}`;
-      }
-
+          : `${this.album.album.name}: ${this.album.album.external_urls.spotify}`
+      );
+    },
+    async copyAlbumInfo(clipboardText) {
       try {
         // Copy to clipboard
         await navigator.clipboard.writeText(clipboardText);
@@ -169,10 +193,7 @@ export default {
         responseType: "arraybuffer",
       });
       const lazyCover = Buffer.from(response.data, "binary").toString("base64");
-      await cache.put(
-        albumCoverLowRes,
-        new Response(JSON.stringify(lazyCover))
-      );
+      await cache.put(albumCoverLowRes, new Response(JSON.stringify(lazyCover)));
       response = await cache.match(albumCoverLowRes);
     }
 
@@ -181,10 +202,7 @@ export default {
 
     //Pick the image with the closest resolution to 300x300.
     await this.album.album.images.sort((a, b) => {
-      return (
-        Math.abs(a.width * a.height - 300 * 300) -
-        Math.abs(b.width * b.height - 300 * 300)
-      );
+      return Math.abs(a.width * a.height - 300 * 300) - Math.abs(b.width * b.height - 300 * 300);
     });
     this.albumCover = this.album.album.images[0].url;
   },
@@ -287,5 +305,40 @@ export default {
     }
   }
 
+  .copy-button {
+    background: var(--background-alt-2);
+    border: 2px solid var(--background-alt-3);
+    color: var(--text-colour);
+    padding: calc($spacer / 2) $spacer;
+    border-radius: 4px;
+    font-size: 85%;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc($spacer / 2);
+    font-family: inherit;
+
+    &:hover {
+      background: var(--background-alt-3);
+      border-color: var(--text-colour-alt);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &.copied {
+      background: var(--text-colour-alt);
+      color: var(--background);
+      border-color: var(--text-colour-alt);
+    }
+
+    svg {
+      font-size: 12px;
+    }
+  }
 }
 </style>
