@@ -245,7 +245,6 @@ export default {
     align-items: center;
     justify-content: center;
     gap: calc($spacer / 2);
-    width: 100%;
     font-family: inherit;
 
     &:hover {
