@@ -25,7 +25,10 @@
 
     <button
       class="copy-button"
-      @click="copyAlbumInfo"
+      @click.exact="copyPlaintextInfo"
+      @click.shift="copyJsonInfo"
+      @mouseover.shift="setJsonMode"
+      @mouseleave="setTextMode"
       :title="copyButtonTitle"
       :class="{ copied: showCopiedState }"
     >
@@ -37,7 +40,7 @@
 
 <script>
 import axios from "axios";
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 
 export default {
   props: ["album"],
@@ -49,6 +52,7 @@ export default {
       albumCoverLoaded: false,
       online: false,
       showCopiedState: false,
+      copyMode: "text",
     };
   },
 
@@ -66,26 +70,45 @@ export default {
       }
     },
     copyButtonIcon() {
-      return this.showCopiedState ? "check" : "copy";
+      return this.showCopiedState ? "check" : this.copyMode === "json" ? "code" : "copy";
     },
     copyButtonText() {
-      return this.showCopiedState ? "Copied!" : "Copy";
+      return this.showCopiedState ? "Copied!" : this.copyMode === "json" ? "JSON" : "Copy";
     },
     copyButtonTitle() {
-      return this.showCopiedState
-        ? "Album info copied to clipboard"
-        : "Copy album info";
+      return this.showCopiedState ? "Album info copied to clipboard" : "Copy album info";
     },
   },
 
   methods: {
-    async copyAlbumInfo() {
-      // This is the text that'll be copied to the clipboard
-      const clipboardText =
+    async setJsonMode() {
+      this.copyMode = "json";
+    },
+    async setTextMode() {
+      this.copyMode = "text";
+    },
+    async copyJsonInfo() {
+      this.copyAlbumInfo(
+        JSON.stringify(
+          {
+            title: this.album.album.name,
+            artist: this.album.album.artists.length > 0 ? this.album.album.artists[0].name : "",
+            image: this.albumCover,
+            url: this.album.album.external_urls.spotify,
+          },
+          null,
+          2
+        )
+      );
+    },
+    async copyPlaintextInfo() {
+      this.copyAlbumInfo(
         this.album.album.artists.length > 0
           ? `${this.album.album.artists[0].name} - ${this.album.album.name}: ${this.album.album.external_urls.spotify}`
-          : `${this.album.album.name}: ${this.album.album.external_urls.spotify}`;
-
+          : `${this.album.album.name}: ${this.album.album.external_urls.spotify}`
+      );
+    },
+    async copyAlbumInfo(clipboardText) {
       try {
         // Copy to clipboard
         await navigator.clipboard.writeText(clipboardText);
@@ -160,10 +183,7 @@ export default {
         responseType: "arraybuffer",
       });
       const lazyCover = Buffer.from(response.data, "binary").toString("base64");
-      await cache.put(
-        albumCoverLowRes,
-        new Response(JSON.stringify(lazyCover))
-      );
+      await cache.put(albumCoverLowRes, new Response(JSON.stringify(lazyCover)));
       response = await cache.match(albumCoverLowRes);
     }
 
@@ -172,10 +192,7 @@ export default {
 
     //Pick the image with the closest resolution to 300x300.
     await this.album.album.images.sort((a, b) => {
-      return (
-        Math.abs(a.width * a.height - 300 * 300) -
-        Math.abs(b.width * b.height - 300 * 300)
-      );
+      return Math.abs(a.width * a.height - 300 * 300) - Math.abs(b.width * b.height - 300 * 300);
     });
     this.albumCover = this.album.album.images[0].url;
   },
