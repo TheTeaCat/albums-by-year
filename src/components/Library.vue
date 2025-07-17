@@ -50,6 +50,7 @@
           :albums="albumsByYear[year].albums"
           :album_types="album_types"
           :search_query="search_query"
+          :copy_mode="copy_mode"
           @filtered="
             (event) => {
               albumsByYear[year].empty = event == 0;
@@ -73,6 +74,7 @@
 import axios from "axios";
 import ToggleGroup from "./ToggleGroup.vue";
 import Year from "./Year.vue";
+import { demoProfile, demoAlbums } from "../data/demoAlbums.js";
 
 export default {
   components: {
@@ -80,7 +82,7 @@ export default {
     Year,
   },
 
-  props: ["access_token"],
+  props: ["access_token", "demo_mode", "copy_mode"],
 
   data() {
     return {
@@ -117,6 +119,11 @@ export default {
 
   methods: {
     async loadProfile() {
+      if (this.demo_mode) {
+        this.profile = demoProfile;
+        return;
+      }
+
       const cache = await caches.open("albums-by-year-data-cache");
 
       var response = await cache.match(this.profile_request_url);
@@ -134,6 +141,32 @@ export default {
       this.profile = data.data;
     },
     async loadAlbums() {
+      if (this.demo_mode) {
+        const albums = {};
+        
+        for (var album of demoAlbums) {
+          if (album != undefined) {
+            const releaseYear = album["album"]["release_date"].split("-")[0];
+            albums[releaseYear] ? null : (albums[releaseYear] = { year: releaseYear, albums: [] });
+            albums[releaseYear]["albums"].push(album);
+          }
+        }
+
+        // Simulate loading progress
+        let loadedCount = 0;
+        const loadingInterval = setInterval(() => {
+          loadedCount++;
+          this.loadedAlbums = loadedCount;
+          if (loadedCount >= demoAlbums.length) {
+            clearInterval(loadingInterval);
+            this.albumsByYear = albums;
+            this.$emit("loaded");
+          }
+        }, 100);
+        
+        return;
+      }
+
       const cache = await caches.open("albums-by-year-data-cache");
 
       const load_albums_chunk = async function (request_url, albums) {
@@ -178,7 +211,9 @@ export default {
       this.loadedAlbums = 0;
       this.albumsByYear = null;
       this.profile = null;
-      await caches.delete("albums-by-year-data-cache");
+      if (!this.demo_mode) {
+        await caches.delete("albums-by-year-data-cache");
+      }
       this.loadProfile();
       this.loadAlbums();
     },
