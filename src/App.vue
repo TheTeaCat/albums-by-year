@@ -67,7 +67,7 @@
             >GitHub</a
           >
         </li>
-        <li>Made by <a href="http://rainosullivan.com/">Josh</a></li>
+        <li>Made by <a href="http://rainosullivan.com/">Rain</a></li>
       </ul>
     </footer>
   </div>
