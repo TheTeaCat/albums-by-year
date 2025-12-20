@@ -7,56 +7,56 @@ export const demoProfile = {
 };
 
 export const demoAlbums = [
-  // 2024 Albums
+  // Albums
   {
     album: {
       id: "demo1",
-      name: "The Tortured Poets Department",
-      release_date: "2024-04-19",
+      name: "Fine Art",
+      release_date: "2024-06-14",
       release_date_precision: "day",
       album_type: "album",
       artists: [
         {
           id: "artist1",
-          name: "Taylor Swift",
+          name: "Kneecap",
           external_urls: {
-            spotify: "https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02",
+            spotify: "https://open.spotify.com/artist/1ZVACPeq7ccGCoUXwtafUU",
           },
         },
       ],
       images: [
         {
-          url: "https://i.scdn.co/image/ab67616d00001e028ecc33f195df6aa257c39eaa",
+          url: "https://i.scdn.co/image/ab67616d0000b273385bd4740ec9be7ec79d6851",
           width: 640,
           height: 640,
         },
         {
-          url: "https://i.scdn.co/image/ab67616d00001e028ecc33f195df6aa257c39eaa",
+          url: "https://i.scdn.co/image/ab67616d00001e02385bd4740ec9be7ec79d6851",
           width: 300,
           height: 300,
         },
         {
-          url: "https://i.scdn.co/image/ab67616d00001e028ecc33f195df6aa257c39eaa",
+          url: "https://i.scdn.co/image/ab67616d00004851385bd4740ec9be7ec79d6851",
           width: 64,
           height: 64,
         },
       ],
       external_urls: {
-        spotify: "https://open.spotify.com/album/5H7ixXZfsNMGbIE5OBSpcb",
+        spotify: "https://open.spotify.com/artist/3Rj0tDHoX7C5NFq5DKIpHt",
       },
     },
   },
   {
     album: {
       id: "demo2",
-      name: "Hit Me Hard and Soft",
-      release_date: "2024-05-17",
-      release_date_precision: "day",
+      name: "Dots And Loops (Extended Edition)",
+      release_date: "1997",
+      release_date_precision: "year",
       album_type: "album",
       artists: [
         {
           id: "artist2",
-          name: "Billie Eilish",
+          name: "Stereolab",
           external_urls: {
             spotify: "https://open.spotify.com/artist/6qqNVTkY8uBg9cP3Jd8DAH",
           },
@@ -64,261 +64,164 @@ export const demoAlbums = [
       ],
       images: [
         {
-          url: "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
+          url: "https://i.scdn.co/image/ab67616d0000b2735e70712e0193f7a9bbc23c0d",
           width: 640,
           height: 640,
         },
         {
-          url: "https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62",
+          url: "https://i.scdn.co/image/ab67616d0000e1a35e70712e0193f7a9bbc23c0d",
           width: 300,
           height: 300,
         },
         {
-          url: "https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62",
+          url: "https://i.scdn.co/image/ab67616d000048515e70712e0193f7a9bbc23c0d",
           width: 64,
           height: 64,
         },
       ],
       external_urls: {
-        spotify: "https://open.spotify.com/album/7aJuG4TFXa2hmE4z1yxc3n",
+        spotify: "https://open.spotify.com/album/151mT9g0fDHVfpmWeYk4Wx",
       },
     },
   },
-
-  // 2023 Albums
   {
     album: {
       id: "demo4",
-      name: "SOS",
-      release_date: "2022-12-09",
+      name: "Face Down In The Garden",
+      release_date: "2025-04-25",
       release_date_precision: "day",
       album_type: "album",
       artists: [
         {
           id: "artist3",
-          name: "SZA",
+          name: "Tennis",
           external_urls: {
-            spotify: "https://open.spotify.com/artist/7tYKF4w9nC0nq9CsPZTHyP",
+            spotify: "https://open.spotify.com/artist/1ybAN3utgdoUL1MUCtH4QM",
           },
         },
       ],
       images: [
         {
-          url: "https://i.scdn.co/image/ab67616d0000b27370dbc9f47669d120ad874ec1",
+          url: "https://i.scdn.co/image/ab67616d0000b27398eed948ea0588bec5ce9321",
           width: 640,
           height: 640,
         },
         {
-          url: "https://i.scdn.co/image/ab67616d00001e0270dbc9f47669d120ad874ec1",
+          url: "https://i.scdn.co/image/ab676d63000076a038be10bb9ae967b11af8db32",
           width: 300,
           height: 300,
         },
         {
-          url: "https://i.scdn.co/image/ab67616d0000485170dbc9f47669d120ad874ec1",
+          url: "https://i.scdn.co/image/ab67616d0000485198eed948ea0588bec5ce9321",
           width: 64,
           height: 64,
         },
       ],
       external_urls: {
-        spotify: "https://open.spotify.com/album/07w0rG5TETcyihsEIZR3qG",
-      },
-    },
-  },
-
-  // 2022 Albums
-  {
-    album: {
-      id: "demo3",
-      name: "Midnights",
-      release_date: "2022-10-21",
-      release_date_precision: "day",
-      album_type: "album",
-      artists: [
-        {
-          id: "artist1",
-          name: "Taylor Swift",
-          external_urls: {
-            spotify: "https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02",
-          },
-        },
-      ],
-      images: [
-        {
-          url: "https://i.scdn.co/image/ab67616d0000b273bb54dde68cd23e2a268ae0f5",
-          width: 640,
-          height: 640,
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e02bb54dde68cd23e2a268ae0f5",
-          width: 300,
-          height: 300,
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d00004851bb54dde68cd23e2a268ae0f5",
-          width: 64,
-          height: 64,
-        },
-      ],
-      external_urls: {
-        spotify: "https://open.spotify.com/album/1fnJ7k0bllNfL1kVdNVW1A",
+        spotify: "https://open.spotify.com/album/1c1fQu7fCCaB4gIwttv6ZN",
       },
     },
   },
   {
     album: {
-      id: "demo5",
-      name: "Renaissance",
-      release_date: "2022-07-29",
+      id: "demo4",
+      name: "NA HALF 1",
+      release_date: "2025-01-26",
       release_date_precision: "day",
       album_type: "album",
       artists: [
         {
-          id: "artist5",
-          name: "Beyoncé",
+          id: "artist3",
+          name: "Chibi Ichigo",
           external_urls: {
-            spotify: "https://open.spotify.com/artist/6vWDO969PvNqNYHIOW5v0m",
+            spotify: "https://open.spotify.com/artist/0eARdjFMVY4Z92QEzM7dgN",
           },
         },
       ],
       images: [
         {
-          url: "https://i.scdn.co/image/ab67616d0000b2730e58a0f8308c1ad403d105e7",
+          url: "https://i.scdn.co/image/ab67616d0000b273c9cb50ada50196a75085f153",
           width: 640,
           height: 640,
         },
         {
-          url: "https://i.scdn.co/image/ab67616d00001e020e58a0f8308c1ad403d105e7",
+          url: "https://i.scdn.co/image/ab67616d00001e02c9cb50ada50196a75085f153",
           width: 300,
           height: 300,
         },
-        {
-          url: "https://i.scdn.co/image/ab67616d000048510e58a0f8308c1ad403d105e7",
-          width: 64,
-          height: 64,
-        },
       ],
       external_urls: {
-        spotify: "https://open.spotify.com/album/6FJxoadUE4JNVwWHghBwnb",
+        spotify: "https://open.spotify.com/album/6xsTEk2rQoDR2UbMrfKU0Z",
       },
     },
   },
 
-  // 2020 Albums
-  {
-    album: {
-      id: "demo8",
-      name: "After Hours",
-      release_date: "2020-03-20",
-      release_date_precision: "day",
-      album_type: "album",
-      artists: [
-        {
-          id: "artist7",
-          name: "The Weeknd",
-          external_urls: {
-            spotify: "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ",
-          },
-        },
-      ],
-      images: [
-        {
-          url: "https://i.scdn.co/image/ab67616d0000b2738863bc11d2aa12b54f5aeb36",
-          width: 640,
-          height: 640,
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e028863bc11d2aa12b54f5aeb36",
-          width: 300,
-          height: 300,
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d000048518863bc11d2aa12b54f5aeb36",
-          width: 64,
-          height: 64,
-        },
-      ],
-      external_urls: {
-        spotify: "https://open.spotify.com/album/4yP0hdKOZPNshxUOjY0cZj",
-      },
-    },
-  },
-
-  // Singles
+  // Single
   {
     album: {
       id: "demo9",
-      name: "Anti-Hero",
-      release_date: "2022-10-21",
+      name: "Cut & Rewind",
+      release_date: "2025-06-17",
       release_date_precision: "day",
       album_type: "single",
       artists: [
         {
           id: "artist1",
-          name: "Taylor Swift",
+          name: "Say She She",
           external_urls: {
-            spotify: "https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02",
+            spotify: "https://open.spotify.com/artist/1WGb8nCPGJA0RyriSDIQfC",
           },
         },
       ],
       images: [
         {
-          url: "https://i.scdn.co/image/ab67616d0000b273bb54dde68cd23e2a268ae0f5",
+          url: "https://i.scdn.co/image/ab67616d0000b2738fccab8d8765d9551c21bd66",
           width: 640,
           height: 640,
         },
         {
-          url: "https://i.scdn.co/image/ab67616d00001e02bb54dde68cd23e2a268ae0f5",
+          url: "https://i.scdn.co/image/ab67616d00001e02c6aeec40a5b555c715b00b6d",
           width: 300,
           height: 300,
         },
-        {
-          url: "https://i.scdn.co/image/ab67616d00004851bb54dde68cd23e2a268ae0f5",
-          width: 64,
-          height: 64,
-        },
       ],
       external_urls: {
-        spotify: "https://open.spotify.com/track/5qIHFdkW6phMsTZlN2g8Lc",
+        spotify: "https://open.spotify.com/album/50tyh4co58xNd1C1N4mq4k",
       },
     },
   },
 
-  // 2018 Albums
+  // Compilation
   {
     album: {
       id: "demo10",
-      name: "Bohemian Rhapsody: The Original Soundtrack",
-      release_date: "2018-10-19",
+      name: "Best of Bowie",
+      release_date: "2002-10-21",
       release_date_precision: "day",
       album_type: "compilation",
       artists: [
         {
           id: "artist8",
-          name: "Queen",
+          name: "David Bowie",
           external_urls: {
-            spotify: "https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d",
+            spotify: "https://open.spotify.com/artist/0oSGxfWSnnOXhD2fKuz2Gy",
           },
         },
       ],
       images: [
         {
-          url: "https://i.scdn.co/image/ab67616d0000b273ce4f1737bc8a646c8c4bd25a",
+          url: "https://i.scdn.co/image/ab67616d0000b27398dc2963e511c2ff25475d03",
           width: 640,
           height: 640,
         },
         {
-          url: "https://i.scdn.co/image/ab67616d00001e02ce4f1737bc8a646c8c4bd25a",
+          url: "https://i.scdn.co/image/ab67616d0000e1a398dc2963e511c2ff25475d03",
           width: 300,
           height: 300,
         },
-        {
-          url: "https://i.scdn.co/image/ab67616d00004851ce4f1737bc8a646c8c4bd25a",
-          width: 64,
-          height: 64,
-        },
       ],
       external_urls: {
-        spotify: "https://open.spotify.com/album/3BHe7LbW5yRjyqXNJ3A6mW",
+        spotify: "https://open.spotify.com/album/0wdWjBb23leDF11YND4kQd",
       },
     },
   },
