@@ -5,3 +5,13 @@ I wanted to see my saved albums on Spotify categorised by year. I had a google o
 > "Fine, I'll do it myself."
 
 Check it out @ [albumsbyyear.rainosullivan.com](https://albumsbyyear.rainosullivan.com/)
+
+
+## Development Quickstart
+
+```bash
+git clone git@github.com:TheTeaCat/albums-by-year.git
+cd albums-by-year
+bun install
+bun run serve
+```
