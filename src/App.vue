@@ -92,7 +92,8 @@ export default {
       online: false,
       installPromptEvent: null,
       demo_mode: false,
-      isDevelopment: process.env.NODE_ENV === "development",
+      // isDevelopment: process.env.NODE_ENV === "development",
+      isDevelopment: true,
     };
   },
 
