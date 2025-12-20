@@ -50,7 +50,6 @@
           :albums="albumsByYear[year].albums"
           :album_types="album_types"
           :search_query="search_query"
-          :copy_mode="copy_mode"
           @filtered="
             (event) => {
               albumsByYear[year].empty = event == 0;
@@ -82,7 +81,7 @@ export default {
     Year,
   },
 
-  props: ["access_token", "demo_mode", "copy_mode"],
+  props: ["access_token", "demo_mode"],
 
   data() {
     return {

@@ -13,7 +13,6 @@
         v-for="a in sortedAlbums"
         :key="a.album.id"
         :album="a"
-        :copy_mode="copy_mode"
         v-show="albumShown(a)"
       />
     </ol>
@@ -28,7 +27,7 @@ export default {
     Album,
   },
 
-  props: ["year", "albums", "album_types", "search_query", "copy_mode"],
+  props: ["year", "albums", "album_types", "search_query"],
 
   data() {
     return {

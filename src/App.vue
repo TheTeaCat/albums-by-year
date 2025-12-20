@@ -31,7 +31,6 @@
         v-else
         :access_token="access_token"
         :demo_mode="demo_mode"
-        :copy_mode="copyMode"
         ref="library"
         @loaded="refreshing = false"
       />
@@ -62,21 +61,6 @@
         </li>
       </ul>
       <ul>
-        <li
-          class="copy-mode-toggle"
-          @click="toggleCopyMode"
-          :title="
-            copyMode === 'text'
-              ? 'Switch to JSON copy mode'
-              : 'Switch to text copy mode'
-          "
-        >
-          <font-awesome-icon
-            :icon="copyMode === 'json' ? 'code' : 'align-left'"
-            class="icon"
-          />
-          <a>{{ copyMode === "json" ? "JSON" : "Text" }}</a>
-        </li>
         <li>
           <font-awesome-icon :icon="['fab', 'github']" class="icon" /><a
             href="https://github.com/TheTeaCat/albums-by-year/"
@@ -108,7 +92,6 @@ export default {
       online: false,
       installPromptEvent: null,
       demo_mode: false,
-      copyMode: "text", // "text" or "json"
       isDevelopment: process.env.NODE_ENV === "development",
     };
   },
@@ -140,9 +123,6 @@ export default {
     enableDemoMode() {
       this.demo_mode = true;
       this.access_token = "demo_token"; // Dummy token for demo mode
-    },
-    toggleCopyMode() {
-      this.copyMode = this.copyMode === "text" ? "json" : "text";
     },
     install() {
       this.installPromptEvent.prompt();
@@ -435,35 +415,6 @@ footer {
       .refreshing-icon {
         animation: spin linear 1000ms infinite;
       }
-    }
-  }
-
-  .copy-mode-toggle {
-    display: inline;
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-style: dashed;
-    user-select: none;
-
-    &:hover {
-      color: var(--text-colour-alt);
-      cursor: pointer;
-    }
-
-    .icon {
-      margin-right: 0.25em;
-    }
-
-    a {
-      cursor: pointer;
-      text-decoration: inherit;
-      color: inherit;
-    }
-
-    &::after {
-      content: "|";
-      margin: 0 0.5em;
-      color: var(--text-colour-subtle);
     }
   }
 }
